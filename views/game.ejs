@@ -3,6 +3,46 @@
 <head>
   <title>P,R,S - Game</title>
   <link rel="stylesheet" href="styles/style.css">
+  <style>
+  .dropbtn {
+    background-color: #3498DB;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
+
+  .dropbtn:hover, .dropbtn:focus {
+    background-color: #2980B9;
+  }
+
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+
+  .dropdown a:hover {background-color: #ddd;}
+
+  .show {display: block;}
+  </style>
  </head>
 
 <body>
@@ -12,7 +52,14 @@
   </div>
   <div id="throw_choice">
       <h2>Play the Game</h2>
-      <h4><%=user.name%> it's your turn to bust a move!</h4>
+      <h4>Welcome <%=user.name%> it's your turn to bust a move!</h4>
+      <form action="%=user.name%>/results" method="get">
+        Choose your villain
+        <div class="dropdown">
+          <div id="myDropDown" class="dropdown-content">
+            <option value ="villain1"> </option>
+            <!--Insert list of villains -->
+
       <form action="<%=user.name%>/results" method="get">
         Enter your choice of weapon:<br>
         <select name="weapon">
