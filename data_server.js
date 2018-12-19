@@ -61,6 +61,8 @@ app.get('/:user/results', function(request, response){
         index = i;
         break;
     }
+    user_info[i+1] = (user_info[i+1] + 1);
+    
 
   //i dont know if this is the most efficient but you find the user and then increment all their stats.
   //keep going
