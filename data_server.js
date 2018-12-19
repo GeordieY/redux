@@ -38,7 +38,9 @@ app.get('/:user/results', function(request, response){
   };
 
   var villain_data={
-    name: request.query.villain
+    name: request.query.villain,
+    weapon: request.query.weapon
+
   }
 
   response.status(200);
@@ -62,7 +64,9 @@ app.get('/:user/results', function(request, response){
         break;
     }
     user_info[i+1] = (user_info[i+1] + 1);
-    
+
+    //determine winner within dataserver
+
 
   //i dont know if this is the most efficient but you find the user and then increment all their stats.
   //keep going
