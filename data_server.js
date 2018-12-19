@@ -22,7 +22,8 @@ app.get('/', function(request, response){
 
 app.get('/login', function(request, response){
   var user_data={
-      name: request.query.player_name
+      name: request.query.user_name,
+      password: request.query.user_password
   };
   response.status(200);
   response.setHeader('Content-Type', 'text/html')
@@ -37,6 +38,7 @@ app.get('/:user/results', function(request, response){
   response.status(200);
   response.setHeader('Content-Type', 'text/html')
   response.send(JSON.stringify(user_data));
+  response.render('results',{user:user_data});
 });
 
 app.get('/rules', function(request, response){

@@ -1,3 +1,14 @@
+
+//need a button Event Listener
+var name_button = document.getElementById("enter_name_button");
+name_button.addEventListener("click", function(){
+
+});
+
+
+
+/*
+
 var player_name = localStorage.getItem("player_name");
 var player_move;
 var comp_move;
@@ -19,7 +30,7 @@ var player_paper=localStorage.getItem("player_paper");
 var player_scissors=localStorage.getItem("player_scissors");
 */
 
-
+/*
 
 class new_player{
   constructor(){
@@ -65,6 +76,7 @@ play_again
 
 */
 
+/*
 function updateName(){
   var name_button = document.getElementById("confirm_name");
   player_name = localStorage.getItem("player_name");
