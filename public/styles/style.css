@@ -1,4 +1,3 @@
-
 h1 {
   color: #ff0000;
   background-color: #cccccc;
@@ -27,4 +26,11 @@ table, th, td {
 
 .visible{
   display:block;
+}
+
+us {
+  color: black;
+  background-color: lightgrey;
+  text-align: left;
+  text-shadow: 3px 2px red;
 }
