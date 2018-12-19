@@ -25,6 +25,7 @@ app.get('/login', function(request, response){
       name: request.query.user_name,
       password: request.query.user_password
   };
+
   response.status(200);
   response.setHeader('Content-Type', 'text/html')
   response.render('game', {user:user_data});
@@ -35,10 +36,48 @@ app.get('/:user/results', function(request, response){
       name: request.params.user,
       weapon: request.query.weapon
   };
+
+  var villain_data={
+    name: request.query.villain
+  }
+
   response.status(200);
   response.setHeader('Content-Type', 'text/html')
   response.send(JSON.stringify(user_data));
-  response.render('results',{user:user_data});
+  response.send(JSON.stringify(villain_data));
+  response.render('results',{user:user_data, villain:villain_data});
+
+  //write to the CSV what we need to add
+  var index;
+  var user_info;
+  var users_file = fs.readFileSync('data/users.csv');
+  var rows = users_file.split("\n");
+  var user_data = [];
+    for(var i = 0; i<rows.length-1; i++){
+      user_info = rows[i].split(",");
+    }
+    for(var i=0; i<user_info.length; i++){
+      if(user_info[i] == request.params.user){
+        index = i;
+        break;
+    }
+
+  //i dont know if this is the most efficient but you find the user and then increment all their stats.
+  //keep going
+  //  user_info[i+1] =
+  //  user_info[i+2] =
+  //  user_info[i+3] =
+    }
+
+
+//fs.writeFile('data/users.csv','utf8', function(){
+
+//  });
+
+//  fs.writeFile('data/villains.csv','utf8',function(){
+
+  //});
+
 });
 
 app.get('/rules', function(request, response){
@@ -63,9 +102,9 @@ app.get('/stats', function(request, response){
     console.log(user_info);
     var user = [];
     user["Name"] = user_info[0];
-    user["GamesPlayed"] = user_info[1];
-    user["GamesWon"] = user_info[2];
-    user["GamesLost"] = user_info[3];
+    user["Games_Played"] = user_info[1];
+    user["Games_Won"] = user_info[2];
+    user["Games_Lost"] = user_info[3];
     user_data.push(user);
   }
   console.log(user_data);
