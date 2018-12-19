@@ -66,6 +66,8 @@ app.get('/:user/results', function(request, response){
     user_info[i+1] = (user_info[i+1] + 1);
 
     //determine winner within dataserver
+    //then write to the file
+    //do the same for the villain 
 
 
   //i dont know if this is the most efficient but you find the user and then increment all their stats.
