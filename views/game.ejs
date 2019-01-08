@@ -46,13 +46,13 @@
  </head>
 
 <body>
-  <% include global/header %>
+  <!-- <% include global/header %> -->
 
   <div id="feedback">
   </div>
   <div id="throw_choice">
       <h2>Play the Game</h2>
-      <h4>Welcome <%=user_data.name%> it's your turn to bust a move!</h4>
+      <h4>Welcome <%=user.name%> it's your turn to bust a move!</h4>
       <form action="%=user.name%>/results" method="get">
         Choose your villain
         <div class="dropdown">
@@ -75,7 +75,7 @@
         <button type = "submit" id="throw_choice_button">Throw Choice</button>
       </form>
     </div>
-  <% include global/footer %>
+<!-- <% include global/footer %>-->
   <script src="scripts/scripts.js"></script>
  </body>
 </html>
