@@ -40,7 +40,7 @@ app.get('/:user/results', function(request, response){
   var villain_data={
     name: request.query.villain,
     weapon: request.query.weapon
-  }
+  };
 
   //write to the CSV what we need to add
   var index;
@@ -61,6 +61,7 @@ app.get('/:user/results', function(request, response){
         index = i;
         break;
     }
+  }
     for(var i=0; i<rows2.length-1;i++){
       villain_info = rows2[i].split(",");
     }
@@ -161,7 +162,7 @@ app.get('/rules', function(request, response){
   response.render('rules');
 });
 
-app.get('/stats', function(request, response){
+app.get('/:user/stats', function(request, response){
   var users_file = fs.readFileSync('data/users.csv','utf8');
   console.log(users_file);
   //parse the csv
@@ -182,8 +183,8 @@ app.get('/stats', function(request, response){
     user["Rock Played"] = user_info[7];
     user_data.push(user);
   }
-  console.log(user_data);
 
+  console.log(user_data);
 
   var villains_file = fs.readFileSync('data/villains.csv','utf8');
   console.log(villains_file);
@@ -209,12 +210,12 @@ app.get('/stats', function(request, response){
 
 
   response.status(200);
-  response.setHeader('Content-Type', 'text/html')
-  response.render('stats', (users:user_data, villains:villain_data));
+  response.setHeader('Content-Type', 'text/html');
+  response.render('stats', {user: user_data, villain:villain_data});
 });
 
 app.get('/about', function(request, response){
   response.status(200);
-  response.setHeader('Content-Type', 'text/html')
+  response.setHeader('Content-Type', 'text/html');
   response.render('about');
 });
