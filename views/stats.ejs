@@ -18,14 +18,16 @@
         <th class="top_row">Wins %</th>
       </tr>
       <tr>
+
+    <!-- Need to figure out how to call EJS variables in this file to list stats from our dataserver.js--->
         <%for(var i=0;i< users.length;i++)%>
         <th><span class="player_name_span"></span>  </th>
         <td> <%users[i]["Name"]%></td>
         <td> <%users[i]["GamesPlayed"]%></td>
         <td> <%users[i]["GamesWon"]%></td>
         <td> <%users[i]["GamesLost"]%></td>
-         <% var ties=(users[i]["GamesPlayed]-%> <!--need to add GameTied  recognize arithmetic correct w wrong answer. Int problem with data server, you can change it to ParseInt with arithmetic operators  -->
-        <td> <%ties%>       </td>
+          <!--need to add GameTied  recognize arithmetic correct w wrong answer. Int problem with data server, you can change it to ParseInt with arithmetic operators  -->
+        <td> <%users[i]</td>
       </tr>
       <tr>
         <th> B(r)owser </th>
