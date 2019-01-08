@@ -42,8 +42,6 @@ app.get('/:user/results', function(request, response){
     weapon: request.query.weapon
   }
 
-
-
   //write to the CSV what we need to add
   var index;
   var user_info;
