@@ -53,14 +53,15 @@
   <div id="throw_choice">
       <h2>Play the Game</h2>
       <h4>Welcome <%=user.name%> it's your turn to bust a move!</h4>
-      <form action="%=user.name%>/results" method="get">
+      <form action="<%=user.name%>/results" method="get">
         Choose your villain
         <div class="dropdown">
           <div id="myDropDown" class="dropdown-content">
             <select name="villain">
             <option value ="villain1"> </option>
-            <!-- NEED TO DOOO: Insert list of villains -->
           </select>
+        </form>
+
 
       <form action="<%=user.name%>/results" method="get">
         Enter your choice of weapon:<br>
@@ -71,6 +72,8 @@
           <option value="scissors">Scissors</option>
         </select>
         <br>
+      </form>
+
 
         <button type = "submit" id="throw_choice_button">Throw Choice</button>
       </form>
