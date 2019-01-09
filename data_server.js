@@ -68,6 +68,10 @@ app.get('/:user/results', function(request, response){
     name: request.query.villain,
     weapon: request.query.weapon
   };
+
+  console.log("weapon" + villain_data.weapon);
+
+
 //  console.log("userdata2" + user_data);
   //console.log("vildata" + villain_data);
   //write to the CSV what we need to add
