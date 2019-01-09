@@ -66,10 +66,10 @@ app.get('/:user/results', function(request, response){
   };
   var villain_data={
     name: request.query.villain,
-    weapon: request.query.weapon
+    
   };
 
-  console.log("weapon" + villain_data.weapon);
+
 
 
 //  console.log("userdata2" + user_data);
