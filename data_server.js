@@ -68,19 +68,24 @@ app.get('/:user/results', function(request, response){
     name: request.query.villain,
     weapon: request.query.weapon
   };
-  console.log("userdata2" + user_data);
-  console.log("vildata" + villain_data);
+//  console.log("userdata2" + user_data);
+  //console.log("vildata" + villain_data);
   //write to the CSV what we need to add
   var index;
+  var index2;
   var user_info;
   var villain_info;
   var winner;
-  var users_file = fs.readFileSync('data/users.csv');
-  var villains_file = fs.readFileSync('data/villains.csv');
+  var users_file = fs.readFileSync('data/users.csv', 'utf8');
+  var villains_file = fs.readFileSync('data/villains.csv', 'utf8');
+  console.log("file1" + users_file);
+  console.log("file2"+ villains_file);
   var rows = users_file.split("\n");
+  //console.log("rows" + rows);
   var rows2 = (villains_file).split("\n");
 
-    for(var i = 0; i<rows.length-1; i++){
+
+    for(var i = 0; i<(rows.length)-1; i++){
       user_info = rows[i].split(",");
     }
     for(var i=0; i<user_info.length; i++){
@@ -172,8 +177,8 @@ app.get('/:user/results', function(request, response){
     var viljoin = villain_info.join(",");
     var rowjoin = Array.from(initjoin).join("\n");
     var vilrow = Array.from(viljoin).join("\n");
-    var users_file = fs.writeFileSync('data.users/csv', rowjoin, 'utf8');
-    var villains_file = fs.writeFileSync('data.villains/csv',vilrow, 'utf8');
+    var users_file = fs.writeFileSync('data/users.csv', rowjoin, 'utf8');
+    var villains_file = fs.writeFileSync('data/villains.csv',vilrow, 'utf8');
     response.status(200);
     response.setHeader('Content-Type', 'text/html')
     response.send(JSON.stringify(user_data));
