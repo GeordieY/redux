@@ -66,7 +66,7 @@ app.get('/:user/results', function(request, response){
   };
   var villain_data={
     name: request.query.villain,
-    
+
   };
 
 
@@ -94,7 +94,7 @@ app.get('/:user/results', function(request, response){
     }
     //split array by commas
 
-
+//next time: look at line 98
     for(var i=0; i<user_info.length; i++){
       if(user_info[i] == user_data.name){
         index = i;
