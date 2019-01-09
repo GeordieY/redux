@@ -26,7 +26,7 @@ app.get('/login', function(request, response){
       password: request.query.user_password
   };
   /* console log isn't being reached? */
-  console.log("This is userdata" + user_data);
+  //console.log("This is userdata" + user_data);
 
 
   response.status(200);
@@ -35,7 +35,7 @@ app.get('/login', function(request, response){
 
   var nameadd = [user_data.name, 0, 0, 0, 0, 0, 0, 0];
   var file = nameadd.join();
-  console.log("Fileprint" + file);
+  //console.log("Fileprint" + file);
   fs.writeFileSync('data/users.csv', file, 'utf8');
 
 
@@ -77,7 +77,7 @@ app.get('/:user/results', function(request, response){
   var winner;
   var users_file = fs.readFileSync('data/users.csv');
   var villains_file = fs.readFileSync('data/villains.csv');
-  var rows = (users_file).split("\n");
+  var rows = users_file.split("\n");
   var rows2 = (villains_file).split("\n");
 
     for(var i = 0; i<rows.length-1; i++){
