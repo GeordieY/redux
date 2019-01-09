@@ -37,6 +37,7 @@ app.get('/login', function(request, response){
   var file = nameadd.join();
   fs.writeFileSync('data/users.csv', 'utf8', file);
   */
+  
   response.render('game', {user:user_data});
 });
 
