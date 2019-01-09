@@ -46,16 +46,54 @@
  </head>
 
 <body>
-  <!-- <% include global/header %> -->
+ <%include global/header %>
 
   <div id="feedback">
   </div>
   <div id="throw_choice">
       <h2>Play the Game </h2>
-      <h4>Welcome <%=user.name%> it's your turn to bust a move!</h4>
+      <h3>Welcome <%=user.name%> it's your turn to bust a move!</h3>
+
       <form action="<%=user.name%>/results" method="get">
-        Choose your villain
-        <div class="dropdown">
+        <select name="cars">
+          <option value ="villain1"> Villain1 </option>
+          <option value ="villain2"> Villain2 </option>
+          <option value ="villain3"> Villain3 </option>
+          <option value ="villain4"> Villain4 </option>
+          <option value ="villain5"> Villain5 </option>
+        </select>
+        <br><br>
+        </form>
+
+    <form action="<%=user.name%>/results" method="get">
+      Enter your choice of weapon:<br>
+      <input type="radio" name="rock" value="rock" checked> Rock <br>
+      <input type="radio" name="paper" value="paper" checked> Paper <br>
+      <input type="radio" name="scissors" value="scissors" checked> Scissors <br>
+      <br><br>
+      <button type = "submit" id="throw_choice_button">Throw Choice</button>
+    </form>
+      <!--
+          <select name="weapon">
+            <option value=" "> </option>
+            <option value="paper">Paper</option>
+            <option value="rock">Rock</option>
+            <option value="scissors">Scissors</option>
+          </select>
+        -->
+
+
+
+        <!--
+        <input type="radio" name="villain1" value="villain1"> Villain1<br>
+        <input type="radio" name="villain2" value="villain2"> Villain2<br>
+        <input type="radio" name="villain3" value="villain3"> Villain3<br>
+        <input type="radio" name="villain1" value="villain1"> Villain4<br>
+        <input type="radio" name="villain1" value="villain1"> Villain5<br>
+        <input type="radio" name="villain1" value="villain1"> Villain6<br>
+      -->
+
+      <!--  <div class="dropdown">
           <div id="myDropDown" class="dropdown-content">
             <select name="villain">
             <option value ="villain1"> Villain1 </option>
@@ -64,9 +102,10 @@
             <option value ="villain4"> Villain4 </option>
             <option value ="villain5"> Villain5 </option>
           </select>
-        </form>
+        -->
 
 
+<!--
       <form action="<%=user.name%>/results" method="get">
         Enter your choice of weapon:<br>
         <select name="weapon">
@@ -75,14 +114,15 @@
           <option value="rock">Rock</option>
           <option value="scissors">Scissors</option>
         </select>
+        <button type = "submit" id="throw_choice_button">Throw Choice</button>
         <br>
       </form>
+    -->
 
 
-        <button type = "submit" id="throw_choice_button">Throw Choice</button>
-      </form>
+
     </div>
-<!-- <% include global/footer %>-->
+<% include global/footer %>
   <script src="scripts/scripts.js"></script>
  </body>
 </html>

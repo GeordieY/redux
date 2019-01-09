@@ -1,10 +1,11 @@
 
 //need a button Event Listener
+/*
 var name_button = document.getElementById("enter_name_button");
 name_button.addEventListener("click", function(){
 
 });
-
+*/
 
 
 /*

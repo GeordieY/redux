@@ -25,12 +25,27 @@ app.get('/login', function(request, response){
       name: request.query.user_name,
       password: request.query.user_password
   };
-  console.log("userdata" +user_data);
+  console.log("This is userdata" + user_data);
+
 
   response.status(200);
   response.setHeader('Content-Type', 'text/html')
   response.render('game', {user:user_data});
 });
+
+/*
+app.get('/game',function(request,response)){
+  var user_data={
+      name: request.query.user_name,
+      password: request.query.user_password
+  };
+
+  console.log("This is userdata" + user_data);
+  response.status(200);
+  response.setHeader('Content-Type', 'text/html');
+  response.render('/:user/results', {user:user_data})
+}
+*/
 
 app.get('/:user/results', function(request, response){
   var user_data={
