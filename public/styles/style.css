@@ -34,3 +34,12 @@ us {
   text-align: left;
   text-shadow: 3px 2px red;
 }
+
+img {
+
+  height: 50%;
+  width: 50%;
+  border: 10px;
+  background-color: red;
+
+}
