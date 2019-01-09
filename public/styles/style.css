@@ -35,15 +35,6 @@ us {
   text-shadow: 3px 2px red;
 }
 
-<<<<<<< HEAD
-img {
-
-  height: 50%;
-  width: 50%;
-  border: 10px;
-  background-color: red;
-
-=======
 #headPlayerImg {
   height: 50%;
   width: 40%;
@@ -51,5 +42,4 @@ img {
   max-width: 60%;
   height: auto;
   /* transform: rotate(25deg); */
->>>>>>> e8989958e2ff484927e2c04849546c1e5ac284d0
 }
