@@ -25,6 +25,7 @@ app.get('/login', function(request, response){
       name: request.query.user_name,
       password: request.query.user_password
   };
+  console.log("userdata" +user_data);
 
   response.status(200);
   response.setHeader('Content-Type', 'text/html')
@@ -42,6 +43,8 @@ app.get('/:user/results', function(request, response){
     weapon: request.query.weapon
   };
 
+  console.log("userdata2" + user_data);
+  console.log("vildata" + villain_data);
   //write to the CSV what we need to add
   var index;
   var user_info;
@@ -151,7 +154,7 @@ app.get('/:user/results', function(request, response){
     response.setHeader('Content-Type', 'text/html')
     response.send(JSON.stringify(user_data));
     response.send(JSON.stringify(villain_data));
-    response.render('results',{winner, user:user_data, villain:villain_data});
+    response.render('results',{winner:winner, users:user_data, villains:villain_data});
 
 });
 
