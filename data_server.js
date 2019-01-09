@@ -25,6 +25,7 @@ app.get('/login', function(request, response){
       name: request.query.user_name,
       password: request.query.user_password
   };
+  /* console log isn't being reached? */
   console.log("This is userdata" + user_data);
 
 
@@ -48,16 +49,17 @@ app.get('/game',function(request,response)){
 */
 
 app.get('/:user/results', function(request, response){
+
+//error at the splitting of the CSV. 
+
   var user_data={
       name: request.params.user,
       weapon: request.query.weapon
   };
-
   var villain_data={
     name: request.query.villain,
     weapon: request.query.weapon
   };
-
   console.log("userdata2" + user_data);
   console.log("vildata" + villain_data);
   //write to the CSV what we need to add
@@ -67,10 +69,9 @@ app.get('/:user/results', function(request, response){
   var winner;
   var users_file = fs.readFileSync('data/users.csv');
   var villains_file = fs.readFileSync('data/villains.csv');
-  var rows = users_file.split("\n");
-  var rows2 = villains_file.split("\n");
-//  var user_data = [];
-//  var villain_data= [];
+  var rows = (users_file).split("\n");
+  var rows2 = (villains_file).split("\n");
+
     for(var i = 0; i<rows.length-1; i++){
       user_info = rows[i].split(",");
     }
