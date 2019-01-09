@@ -32,9 +32,11 @@ app.get('/login', function(request, response){
   response.status(200);
   response.setHeader('Content-Type', 'text/html');
 
+/*
   var nameadd = [user_data.name, 0, 0, 0, 0, 0, 0, 0];
   var file = nameadd.join();
   fs.writeFileSync('data/users.csv', 'utf8', file);
+  */
   response.render('game', {user:user_data});
 });
 
