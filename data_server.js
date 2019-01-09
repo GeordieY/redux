@@ -32,12 +32,13 @@ app.get('/login', function(request, response){
   response.status(200);
   response.setHeader('Content-Type', 'text/html');
 
-/*
+
   var nameadd = [user_data.name, 0, 0, 0, 0, 0, 0, 0];
   var file = nameadd.join();
-  fs.writeFileSync('data/users.csv', 'utf8', file);
-  */
-  
+  console.log("Fileprint" + file);
+  fs.writeFileSync('data/users.csv', file, 'utf8');
+
+
   response.render('game', {user:user_data});
 });
 
@@ -171,8 +172,8 @@ app.get('/:user/results', function(request, response){
     var viljoin = villain_info.join(",");
     var rowjoin = Array.from(initjoin).join("\n");
     var vilrow = Array.from(viljoin).join("\n");
-    var users_file = fs.writeFileSync('data.users/csv', 'utf8', rowjoin);
-    var villains_file = fs.writeFileSync('data.villains/csv','utf8',vilrow);
+    var users_file = fs.writeFileSync('data.users/csv', rowjoin, 'utf8');
+    var villains_file = fs.writeFileSync('data.villains/csv',vilrow, 'utf8');
     response.status(200);
     response.setHeader('Content-Type', 'text/html')
     response.send(JSON.stringify(user_data));
