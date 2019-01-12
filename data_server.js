@@ -47,6 +47,12 @@ app.get('/login', function(request, response){
   var vill2= vill.join();
 
   //console.log("Fileprint" + file);
+  var k = fs.readFileSync('data/users.csv', 'utf8');
+  if(k.length<=0){
+    var c = ['test', 0, 0, 0, 0, 0, 0, 0, 0];
+    fs.writeFileSync('data/users.csv', c, 'utf8');
+  }
+  
   fs.writeFileSync('data/users.csv', file, 'utf8');
   fs.writeFileSync('data/villains.csv', vill2, 'utf8');
   response.render('game', {user:user_data});
