@@ -2,6 +2,9 @@ var express = require('express');
 var fs = require('fs');
 var favicon = require('serve-favicon');
 
+var villainlist = [ "Bones", "Gato", "Manny", "Mr.Modern", "Regal", "The Boss", "Comic Hans", "Harry","Mickey","Pixie","Spock","The Magician" ];
+
+
 
 var app = express();
 app.use(express.static('public'));
@@ -35,10 +38,17 @@ app.get('/login', function(request, response){
 
   var nameadd = [user_data.name, 0, 0, 0, 0, 0, 0, 0];
   var file = nameadd.join();
+  var vill = [];
+  for(var i=0; i<villainlist.length;i++){
+    var c = [villainlist[i], 0, 0 ,0 ,0 ,0 ,0,0];
+    vill.push(c);
+  //  console.log("hi" + vill[i]);
+  }
+  var vill2= vill.join();
+
   //console.log("Fileprint" + file);
   fs.writeFileSync('data/users.csv', file, 'utf8');
-
-
+  fs.writeFileSync('data/villains.csv', vill2, 'utf8');
   response.render('game', {user:user_data});
 });
 
@@ -60,14 +70,7 @@ app.get('/:user/results', function(request, response){
 
 //error at the splitting of the CSV.
 
-  var user_data={
-      name: request.params.user,
-      weapon: request.query.weapon
-  };
-  var villain_data={
-    name: request.query.villain,
 
-  };
 
 
 
@@ -77,39 +80,69 @@ app.get('/:user/results', function(request, response){
   //write to the CSV what we need to add
   var index;
   var index2;
-  var user_info;
-  var villain_info;
+  var user_info = [];
+  var villain_info = [];
   var winner;
+
   var users_file = fs.readFileSync('data/users.csv', 'utf8');
   var villains_file = fs.readFileSync('data/villains.csv', 'utf8');
-  console.log("file1" + users_file);
-  console.log("file2"+ villains_file);
-  var rows = users_file.split("\n");
+  console.log("userfiletype" + typeof(users_file)); //this is a string
+  console.log("villainfiletype" + typeof(villains_file)); //this is a string
+//  console.log("file1" + users_file);
+//  console.log("file2"+ villains_file);
+  var rows = (users_file.split("\n"));
   //console.log("rows" + rows);
-  var rows2 = (villains_file).split("\n");
+  var rows2 = ((villains_file).split("\n"));
 
 
-    for(var i = 0; i<(rows.length)-1; i++){
-      user_info = rows[i].split(",");
-    }
-    //split array by commas
 
-//next time: look at line 98
-    for(var i=0; i<user_info.length; i++){
-      if(user_info[i] == user_data.name){
-        index = i;
-        break;
-    }
+  console.log("This is rows" + rows);
+  console.log("This is rows2" + rows2);
+  console.log("rowtype1" + typeof(rows)); //this is recognized as an object
+  console.log("rowtype2" + typeof(rows2)); //this is recognized as an objectß
+
+  /*
+  next time Georde if we Meet with Gohde and also to think about as we do project
+  01/10/19
+  1) Why is rows and rows2 recognized as object
+    need to be array --> parsed --> data changed
+  2) Must add a sort option by size in terms of each time the data is checked in the stats
+  3) Right now I regenerate villains.csv every time a new user logs in. Is that a problem for now? Can change later. Need to include parsing of csvs to see
+    This may be due to gitignore with the things changing a lot. I will recheck later
+  4) After this -->
+    1) need to get data transferred between CSV and server. If that is done,
+    2) Check Login and update stats based on Login. Need to work on communicating logins and logouts. Next bigger step to save password. Might have to create another separate array
+    3) Create non-uniform distributions for villains
+    4) For game/results --> create loading pages with hands and images. Use ejs to determine.
+    5) Make sure stats is loading results properly.
+    6) Re-format CSS if time permits
+  */
+
+
+//move turn it into an array and parse
+for(var i=0; i<rows.length-1; i++){
+  user_info = rows[i].split(",");
+  console.log("user_info" + user_info);
+}
+for(var i=0; i<rows2.length-1;i++){
+  villain_info = rows2[i].split(",");
+  console.log("Villain_info" + villain_info);
+}
+
+for(var i=0; i<user_info.length; i++){
+  if(user_info[i] == user_data.name){
+    index = i;
+    break;
   }
-    for(var i=0; i<rows2.length-1;i++){
-      villain_info = rows2[i].split(",");
-    }
-    for(var i=0;i<villain_info.length;i++){
-      if(villain_info[i] == villain_data.name){
-        index2 = i;
-        break;
-      }
-    }
+}
+
+for(var i=0;i<villain_info.length;i++){
+  if(villain_info[i] == villain_data.name){
+    index2 = i;
+    break;
+  }
+}
+
     //takes user info of the specific row, increments Games Played, then it increments either the Games Won, Lost, Tied
 
 //+1 = games played, +2=win, +3=loss, +4=tie, +5=paper, +6=scissors, +7=rock this is what each index does
@@ -191,6 +224,51 @@ app.get('/:user/results', function(request, response){
     response.send(JSON.stringify(user_data));
     response.send(JSON.stringify(villain_data));
     response.render('results',{winner:winner, users:user_data, villains:villain_data});
+
+//unused array code
+/*for(var i=0; i<rows.length-1;i++){
+console.log("rowtype1" + typeof(rows[i])); //this is recognized as an object
+}
+/*for(var i=0; i<rows2.length-1; i++){
+console.log("rowtype2" + typeof(rows2)); //this is recognized as an objectß
+}
+*/
+/*
+for(var i=0; i<rows.length-1; i++){
+  user_info.push((rows[i].toString()).split(","));
+}
+*/
+/*
+for(var i=0; i<5;i++){
+  console.log("User info search" + user_info[i]);
+}
+*/
+
+//console.log("User array" + user_info.length + "User arra");
+/*
+for(var i = 0; i<(rows.length)-1; i++){
+    user_info = rows[i].split(",");
+  }
+  */
+
+  //split array by commas
+
+
+/*
+for(var i=0; i<rows2.length-1; i++){
+  villain_info.push((rows2[i].toString()).split(","));
+}
+
+
+//  console.log("villain_info test" + villain_info[3]);
+
+  for(var i=0; i<rows2.length-1;i++){
+    villain_info = rows2[i].split(",");
+  }
+*/
+
+
+
 
 });
 
