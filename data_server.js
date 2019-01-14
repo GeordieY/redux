@@ -155,10 +155,12 @@ var villain_data = {
 //move turn it into an array and parse
 for(var i=0; i<rows.length; i++){
   user_info.push(rows[i].trim().split(","));
+  console.log("userinfo" + user_info[i]);
 //  console.log("user_info" + user_info); this code is reached
 }
 for(var i=0; i<rows2.length;i++){
   villain_info.push(rows2[i].trim().split(","));
+  console.log("vilinfo" + villain_info[i]);
   //console.log("Villain_info" + villain_info); this code is reached
 }
 
@@ -253,9 +255,14 @@ for(var i=0;i<villain_info.length;i++){
     var vilrow = Array.from(viljoin).join("\n");
     console.log("rowjoin"+ initjoin);
     console.log("viljoin" + viljoin);
+    console.log("winner" + winner);
     var users_file = fs.writeFileSync('data/users.csv', rowjoin, 'utf8');
     var villains_file = fs.writeFileSync('data/villains.csv',vilrow, 'utf8');
+    console.log("users_file" + users_file );
+    console.log("villains_file" + villains_file);
     response.status(200);
+    console.log("user_data" + JSON.stringify(user_data));
+    console.log("villain_data" + JSON.stringify(villain_data));
     response.setHeader('Content-Type', 'text/html')
     response.send(JSON.stringify(user_data));
     response.send(JSON.stringify(villain_data));
