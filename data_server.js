@@ -170,7 +170,7 @@ for(var i=0; i<user_info.length; i++){
 }
 
 for(var i=0;i<villain_info.length;i++){
-  if(villain_info[i] == '"' + villain_data.name '"'){
+  if(villain_info[i] == villain_data.name){
     index2 = i;
     console.log(index2 + "this is index");
     break;
