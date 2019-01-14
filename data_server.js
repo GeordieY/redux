@@ -154,11 +154,11 @@ var villain_data = {
 
 //move turn it into an array and parse
 for(var i=0; i<rows.length; i++){
-  user_info = rows[i].trim().split(",");
+  user_info.push(rows[i].trim().split(","));
 //  console.log("user_info" + user_info); this code is reached
 }
 for(var i=0; i<rows2.length;i++){
-  villain_info = rows2[i].trim().split(",");
+  villain_info.push(rows2[i].trim().split(","));
   //console.log("Villain_info" + villain_info); this code is reached
 }
 
