@@ -18,9 +18,10 @@ app.listen(port, function(){
 });
 
 app.get('/', function(request, response){
+  var user_data = {};
   response.status(200);
   response.setHeader('Content-Type', 'text/html')
-  response.render('index');
+  response.render('index', {user:user_data});
 });
 
 app.get('/login', function(request, response){
@@ -28,6 +29,11 @@ app.get('/login', function(request, response){
       name: request.query.user_name,
       password: request.query.user_password
   };
+
+//this data is being saved console.log("This is data password" + user_data.password);
+//this data is being saved console.log("This is data username" + user_data.name);
+
+
   /* console log isn't being reached? */
   //console.log("This is userdata" + user_data);
 
@@ -37,24 +43,33 @@ app.get('/login', function(request, response){
 
 
   var nameadd = [user_data.name, 0, 0, 0, 0, 0, 0, 0];
+  console.log(nameadd + "Name" + typeof(nameadd));
   var file = nameadd.join();
   var vill = [];
-  for(var i=0; i<villainlist.length;i++){
-    var c = [villainlist[i], 0, 0 ,0 ,0 ,0 ,0,0];
-    vill.push(c);
-  //  console.log("hi" + vill[i]);
-  }
-  var vill2= vill.join();
+
+
+
+
+//this returns a string  console.log("List of initial villains" + vill2 +  "Datatype" + typeof(vill2));
+//this returns a string  console.log("List of users" + file +  "Datatype" + typeof(file));
 
   //console.log("Fileprint" + file);
+
+  /*
   var k = fs.readFileSync('data/users.csv', 'utf8');
   if(k.length<=0){
     var c = ['test', 0, 0, 0, 0, 0, 0, 0, 0];
     fs.writeFileSync('data/users.csv', c, 'utf8');
-  }
-  
-  fs.writeFileSync('data/users.csv', file, 'utf8');
-  fs.writeFileSync('data/villains.csv', vill2, 'utf8');
+    for(var i=0; i<villainlist.length;i++){
+      var c = [villainlist[i], 0, 0 ,0 ,0 ,0 ,0,0];
+      vill.push(c);
+    //  console.log("hi" + vill[i]);
+    }
+    var vill2= vill.join();
+  }*/
+
+  //fs.writeFileSync('data/users.csv', file, 'utf8');
+  //fs.writeFileSync('data/villains.csv', vill2, 'utf8');
   response.render('game', {user:user_data});
 });
 
@@ -75,10 +90,14 @@ app.get('/game',function(request,response)){
 app.get('/:user/results', function(request, response){
 
 //error at the splitting of the CSV.
-
-
-
-
+var user_data = {
+  name: request.param.user,
+  weapon: request.query.weapon,
+}
+var villain_data = {
+  villain: request.query.villain,
+  weapon: "paper"
+}
 
 
 //  console.log("userdata2" + user_data);
@@ -92,13 +111,21 @@ app.get('/:user/results', function(request, response){
 
   var users_file = fs.readFileSync('data/users.csv', 'utf8');
   var villains_file = fs.readFileSync('data/villains.csv', 'utf8');
-  console.log("userfiletype" + typeof(users_file)); //this is a string
-  console.log("villainfiletype" + typeof(villains_file)); //this is a string
+//  console.log("userfiletype" + typeof(users_file)); //this is a string
+  //console.log("villainfiletype" + typeof(villains_file)); //this is a string
 //  console.log("file1" + users_file);
 //  console.log("file2"+ villains_file);
-  var rows = (users_file.split("\n"));
+  var rows = users_file.split('\n');
+  var rows2= villains_file.split('\n');
+
+
+
+
+
+
+//  var rows = (users_file.split('\n'));
   //console.log("rows" + rows);
-  var rows2 = ((villains_file).split("\n"));
+//  var rows2 = ((villains_file).split('\n'));
 
 
 
@@ -126,12 +153,12 @@ app.get('/:user/results', function(request, response){
 
 
 //move turn it into an array and parse
-for(var i=0; i<rows.length-1; i++){
-  user_info = rows[i].split(",");
+for(var i=0; i<rows.length; i++){
+  user_info = rows[i].trim().split(",");
   console.log("user_info" + user_info);
 }
-for(var i=0; i<rows2.length-1;i++){
-  villain_info = rows2[i].split(",");
+for(var i=0; i<rows2.length;i++){
+  villain_info = rows2[i].trim().split(",");
   console.log("Villain_info" + villain_info);
 }
 
@@ -223,6 +250,8 @@ for(var i=0;i<villain_info.length;i++){
     var viljoin = villain_info.join(",");
     var rowjoin = Array.from(initjoin).join("\n");
     var vilrow = Array.from(viljoin).join("\n");
+    console.log("rowjoin"+ initjoin);
+    console.log("viljoin" + viljoin);
     var users_file = fs.writeFileSync('data/users.csv', rowjoin, 'utf8');
     var villains_file = fs.writeFileSync('data/villains.csv',vilrow, 'utf8');
     response.status(200);
@@ -336,6 +365,14 @@ app.get('/:user/stats', function(request, response){
   response.setHeader('Content-Type', 'text/html');
   response.render('stats', {user: user_data, villain:villain_data});
 });
+
+
+
+
+
+
+
+
 
 app.get('/about', function(request, response){
   response.status(200);

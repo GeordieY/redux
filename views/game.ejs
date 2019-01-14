@@ -55,7 +55,7 @@
       <h3>Welcome <%=user.name%> it's your turn to bust a move!</h3>
 
       <form action="<%=user.name%>/results" method="get">
-        <select name="cars">
+        <select name="villains">
           <option value ="Bones"> Bones </option>
           <option value ="Gato"> Gato </option>
           <option value ="Manny"> Manny </option>
@@ -71,14 +71,15 @@
 
         </select>
         <br><br>
-        </form>
-
-    <form action="<%=user.name%>/results" method="get">
+        <select name="weapon" id="weapon">
+      <!-- </form>-->
+  <!--  <form action="<%=user.weapon%>/results" method="get">-->
       Enter your choice of weapon:<br>
       <input type="radio" name="throw" value="rock"> Rock <br>
       <input type="radio" name="throw" value="paper"> Paper <br>
       <input type="radio" name="throw" value="scissors"> Scissors <br>
       <br><br>
+    </select>
       <button type = "submit" id="throw_choice_button"> Play Game! </button>
     </form>
 
