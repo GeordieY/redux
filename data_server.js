@@ -166,14 +166,14 @@ for(var i=0; i<rows2.length;i++){
 
 for(var i=0; i<user_info.length; i++){
   //this needs to work
-  if((user_info[i]).toString() == (user_data.name).toString()){
+  if(String(user_info[i])== String(user_data.name)){
     index = i;
     break;
   }
 }
 
 for(var i=0;i<villain_info.length;i++){
-  if(villain_info[i] == villain_data.name){
+  if(String(villain_info[i]) == String(villain_data.name)){
     index2 = i;
     console.log(index2 + "this is index");
     break;
