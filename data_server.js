@@ -44,8 +44,8 @@ app.get('/login', function(request, response){
 
   var nameadd = [user_data.name, 0, 0, 0, 0, 0, 0, 0];
   console.log(nameadd + "Name" + typeof(nameadd));
-  var file = nameadd.join();
-  var vill = [];
+  var file = nameadd.join(",");
+  //var vill = [];
 
 
 
@@ -68,7 +68,7 @@ app.get('/login', function(request, response){
     var vill2= vill.join();
   }*/
 
-  //fs.writeFileSync('data/users.csv', file, 'utf8');
+  fs.writeFileSync('data/users.csv', file, 'utf8');
   //fs.writeFileSync('data/villains.csv', vill2, 'utf8');
   response.render('game', {user:user_data});
 });
@@ -155,11 +155,11 @@ var villain_data = {
 //move turn it into an array and parse
 for(var i=0; i<rows.length; i++){
   user_info = rows[i].trim().split(",");
-  console.log("user_info" + user_info);
+//  console.log("user_info" + user_info); this code is reached
 }
 for(var i=0; i<rows2.length;i++){
   villain_info = rows2[i].trim().split(",");
-  console.log("Villain_info" + villain_info);
+  //console.log("Villain_info" + villain_info); this code is reached
 }
 
 for(var i=0; i<user_info.length; i++){
@@ -170,8 +170,9 @@ for(var i=0; i<user_info.length; i++){
 }
 
 for(var i=0;i<villain_info.length;i++){
-  if(villain_info[i] == villain_data.name){
+  if(villain_info[i] == '"' + villain_data.name '"'){
     index2 = i;
+    console.log(index2 + "this is index");
     break;
   }
 }
