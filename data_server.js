@@ -165,7 +165,8 @@ for(var i=0; i<rows2.length;i++){
 }
 
 for(var i=0; i<user_info.length; i++){
-  if(user_info[i] == user_data.name){
+  //this needs to work
+  if((user_info[i]).toString() == (user_data.name).toString()){
     index = i;
     break;
   }
@@ -249,6 +250,7 @@ for(var i=0;i<villain_info.length;i++){
       villain_info[index2+6] = (villain_info[index2+6] + 1);
       winner = "Tie";
     }
+
     var initjoin = user_info.join(",");
     var viljoin = villain_info.join(",");
     var rowjoin = Array.from(initjoin).join("\n");
@@ -260,9 +262,10 @@ for(var i=0;i<villain_info.length;i++){
     var villains_file = fs.writeFileSync('data/villains.csv',vilrow, 'utf8');
     console.log("users_file" + users_file );
     console.log("villains_file" + villains_file);
-    response.status(200);
+
     console.log("user_data" + JSON.stringify(user_data));
     console.log("villain_data" + JSON.stringify(villain_data));
+    response.status(200);
     response.setHeader('Content-Type', 'text/html')
     response.send(JSON.stringify(user_data));
     response.send(JSON.stringify(villain_data));
