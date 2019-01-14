@@ -166,14 +166,14 @@ for(var i=0; i<rows2.length;i++){
 
 for(var i=0; i<user_info.length; i++){
   //this needs to work
-  if(String(user_info[i])== String(user_data.name)){
+  if((user_info[i]) == (user_data.name)){
     index = i;
     break;
   }
 }
 
 for(var i=0;i<villain_info.length;i++){
-  if(String(villain_info[i]) == String(villain_data.name)){
+  if(villain_info[i] == villain_data.name){
     index2 = i;
     console.log(index2 + "this is index");
     break;
@@ -258,10 +258,10 @@ for(var i=0;i<villain_info.length;i++){
     console.log("rowjoin"+ initjoin);
     console.log("viljoin" + viljoin);
     console.log("winner" + winner);
-    var users_file = fs.writeFileSync('data/users.csv', rowjoin, 'utf8');
-    var villains_file = fs.writeFileSync('data/villains.csv',vilrow, 'utf8');
-    console.log("users_file" + users_file );
-    console.log("villains_file" + villains_file);
+    //var users_file = fs.writeFileSync('data/users.csv', rowjoin, 'utf8');
+    //var villains_file = fs.writeFileSync('data/villains.csv',vilrow, 'utf8');
+    //console.log("users_file" + users_file );
+    //console.log("villains_file" + villains_file);
 
     console.log("user_data" + JSON.stringify(user_data));
     console.log("villain_data" + JSON.stringify(villain_data));
