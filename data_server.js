@@ -43,7 +43,7 @@ app.get('/login', function(request, response){
 
 
   var nameadd = [user_data.name, 0, 0, 0, 0, 0, 0, 0];
-  console.log(nameadd + "Name" + typeof(nameadd));
+  //console.log(nameadd + "Name" + typeof(nameadd));
   var file = nameadd.join(",");
   //var vill = [];
 //this returns a string  console.log("List of initial villains" + vill2 +  "Datatype" + typeof(vill2));
@@ -87,18 +87,29 @@ app.get('/:user/results', function(request, response){
 
 //error at the splitting of the CSV.
 var user_data = {
-  name: request.param.user,
-  weapon: request.query.weapons,
+  name: request.params.user,
+  weapon: request.query.weapons
 }
+console.log("userweapon  " + user_data.weapon);
 
 //console.log(user_data.weapon + "weapon"); returns weapon selected
-console.log(user_data.name + "name");
+//console.log(user_data.name + "name");
 var villain_data = {
-  villain: request.query.villains,
+  name: request.query.villains,
   weapon: "paper"
 }
-console.log("villain name" + villain_data.name);
+console.log(villain_data.weapon+ "  villainweapon");
+console.log(villain_data.name + "  vilname");
+//console.log("villain" + villain_data.villain);
 
+/*
+if(user_data.weapon == "paper" && villain_data.weapon == "paper"){
+  console.log("true paper check")
+}
+if(user_data.weapon == villain_data.weapon){
+  console.log("direct comparison test");
+}
+*/
 
 //  console.log("userdata2" + user_data);
   //console.log("vildata" + villain_data);
@@ -108,7 +119,6 @@ console.log("villain name" + villain_data.name);
   var user_info = [];
   var villain_info = [];
   var winner;
-
   var users_file = fs.readFileSync('data/users.csv', 'utf8');
   var villains_file = fs.readFileSync('data/villains.csv', 'utf8');
 //  console.log("userfiletype" + typeof(users_file)); //this is a string
@@ -124,15 +134,12 @@ console.log("villain name" + villain_data.name);
 
 
 //  var rows = (users_file.split('\n'));
-  //console.log("rows" + rows);
+//console.log("rows" + rows);
 //  var rows2 = ((villains_file).split('\n'));
-
-
-
-  console.log("This is rows" + rows);
-  console.log("This is rows2" + rows2);
-  console.log("rowtype1" + typeof(rows)); //this is recognized as an object
-  console.log("rowtype2" + typeof(rows2)); //this is recognized as an objectß
+ //console.log("This is rows" + rows);
+///console.log("This is rows2" + rows2);
+//console.log("rowtype1" + typeof(rows)); //this is recognized as an object
+//console.log("rowtype2" + typeof(rows2)); //this is recognized as an objectß
 
   /*
   next time Georde if we Meet with Gohde and also to think about as we do project
@@ -155,34 +162,48 @@ console.log("villain name" + villain_data.name);
 //move turn it into an array and parse
 for(var i=0; i<rows.length; i++){
   user_info.push(rows[i].trim().split(","));
-  console.log("userinfo" + user_info[i]);
+//  console.log("userinfo["+i+"]:" + user_info[i].length+" "+user_info[i]);
 //  console.log("user_info" + user_info); this code is reached
 }
 for(var i=0; i<rows2.length;i++){
   villain_info.push(rows2[i].trim().split(","));
-  console.log("vilinfo" + villain_info[i]);
+  //console.log("vilinfo" + villain_info[i]);
   //console.log("Villain_info" + villain_info); this code is reached
 }
 
 for(var i=0; i<user_info.length; i++){
   //this needs to work
-  console.log("running user loop");
-  console.log("arrayname" + user_info[i]);
-  console.log("inputname" + user_data.name);
-  if(String(user_info[i]) == String(user_data.name)){
+  //console.log("running user loop");
+  //console.log("arrayname" + user_info[i][0]);
+  //console.log("inputname" + user_data.name);
+  if(String(user_info[i][0]) == String(user_data.name)){
     index = i;
-    console.log(index + "this is 1stindex");
+    //console.log(index + "this is 1stindex");
     break;
   }
 }
 
+/* This is to test the array and each individual parts
+ for(var i=0; i<user_info.length;i++){
+    for(var k=0; k<user_info[i].length;k++){
+    console.log("User Data" + user_info[i][k]);
+    }
+  }
+  for(var i=0; i<villain_info.length;i++){
+    for(var k=0; k<villain_info[i].length;k++){
+    console.log("Vil Data" + villain_info[i][k]);
+    }
+  }
+*/
+
+
 for(var i=0;i<villain_info.length;i++){
-  console.log("running villain loop");
-  console.log("arraynamevil" + villain_info[i]);
-  console.log("inputnamevil" + villain_data.name);
-  if(String(villain_info[i]) == String(villain_data.name)){
+//  console.log("running villain loop");
+//  console.log("arraynamevil" + villain_info[i][0]);
+//  console.log("inputnamevil" + villain_data.name);
+  if(String(villain_info[i][0]) == String(villain_data.name)){
     index2 = i;
-    console.log(index2 + "this is index");
+  //  console.log(index2 + "this is index2");
     break;
   }
 }
@@ -191,89 +212,161 @@ for(var i=0;i<villain_info.length;i++){
 
 //+1 = games played, +2=win, +3=loss, +4=tie, +5=paper, +6=scissors, +7=rock this is what each index does
 
-    user_info[index+1] = (user_info[index+1] + 1);
-    villain_info[index2+1] = (villain_info[index2+1] + 1);
+    //user_info[index+1] = (user_info[index+1] + 1));
+    //villain_info[index2+1] = (villain_info[index2+1] + 1);
 
-    if(user_data.weapon=="rock" && villain_data.weapon=="paper"){
+    user_info[index][1] += 1;
+    villain_info[index2][1] +=1;
+
+    console.log("game user played" + user_info[index][1]);
+
+    if(String(user_data.weapon)==="rock" && String(villain_data.weapon)==="paper"){
+      /*
       user_info[index+3] = (user_info[index+3] + 1);
       user_info[index+7] = (user_info[index+7] + 1);
       villain_info[index2+2] = (villain_info[index2+2] + 1);
       villain_info[index2+5] = (villain_info[index2+5] + 1);
       winner = villain_info[index2];
+      */
+      user_info[index][3] += 1;
+      user_info[index][7] +=1;
+      villain_info[index2][2]+=1;
+      villain_info[index2][5]+=1;
+      winner= villain_info[index2][0];
       console.log("Winner determined" + winner);
     }
-    if(user_data.weapon=="paper" && villain_data.weapon=="paper"){
+    if(String(user_data.weapon)=='"paper"' && String(villain_data.weapon)=='"paper"'){
+      /*
       user_info[index+4] = (user_info[index+4] + 1);
       user_info[index+5] = (user_info[index+5] + 1);
       villain_info[index2+4] = (villain_info[index2+4] + 1);
       villain_info[index2+5] = (villain_info[index2+5] + 1);
+      */
+      user_info[index][4] += 1;
+      user_info[index][5] +=1;
+      villain_info[index2][2]+=1;
+      villain_info[index2][5]+=1;
       winner = "Tie";
       console.log("Winner determined" + winner);
     }
     if(user_data.weapon=="scissors" && villain_data.weapon=="paper"){
+      /*
       user_info[index+2] = (user_info[index+2] + 1);
       user_info[index+6] = (user_info[index+6] + 1);
       villain_info[index2+3] = (villain_info[index2+3] + 1);
       villain_info[index2+5] = (villain_info[index2+5] + 1);
       winner = user_info[index];
+      */
+
+      user_info[index][2] += 1;
+      user_info[index][6] +=1;
+      villain_info[index2][3]+=1;
+      villain_info[index2][5]+=1;
+      winner= user_info[index][0];
+      console.log("Winner determined" + winner);
     }
     if(user_data.weapon=="rock" && villain_data.weapon=="rock"){
+      /*
       user_info[index+4] = (user_info[index+4] + 1);
       user_info[index+7] = (user_info[index+7] + 1);
       villain_info[index2+4] = (villain_info[index2+4] + 1);
       villain_info[index2+7] = (villain_info[index2+7] + 1);
+      */
+      user_info[index][4] += 1;
+      user_info[index][7] +=1;
+      villain_info[index2][2]+=1;
+      villain_info[index2][7]+=1;
       winner = "Tie";
       console.log("Winner determined" + winner);
     }
     if(user_data.weapon=="paper" && villain_data.weapon=="rock"){
+      /*
       user_info[index+2] = (user_info[index+2] + 1);
       user_info[index+5] = (user_info[index+5] + 1);
       villain_info[index2+3] = (villain_info[index2+3] + 1);
       villain_info[index2+7] = (villain_info[index2+7] + 1);
       winner = user_info[index];
+      */
+      user_info[index][2] += 1;
+      user_info[index][5] +=1;
+      villain_info[index2][3]+=1;
+      villain_info[index2][7]+=1;
+      winner= user_info[index][0];
       console.log("Winner determined" + winner);
     }
     if(user_data.weapon=="scissors" && villain_data.weapon=="rock"){
+      /*
       user_info[index+3] = (user_info[index+3] + 1);
       user_info[index+6] = (user_info[index+6] + 1);
       villain_info[index2+2] = (villain_info[index2+2] + 1);
       villain_info[index2+7] = (villain_info[index2+7] + 1);
       winner = villain_info[index2];
+      */
+      user_info[index][3] += 1;
+      user_info[index][6] +=1;
+      villain_info[index2][2]+=1;
+      villain_info[index2][7]+=1;
+      winner= villain_info[index2][0];
       console.log("Winner determined" + winner);
     }
 
     if(user_data.weapon=="rock" && villain_data.weapon=="scissors"){
+      /*
       user_info[index+2] = (user_info[index+2] + 1);
       user_info[index+7] = (user_info[index+7] + 1);
       villain_info[index2+3] = (villain_info[index2+3] + 1);
       villain_info[index2+6] = (villain_info[index2+6] + 1);
       winner = user_info[index];
+      */
+
+      user_info[index][2] += 1;
+      user_info[index][7] +=1;
+      villain_info[index2][3]+=1;
+      villain_info[index2][6]+=1;
+      winner= user_info[index][0];
       console.log("Winner determined" + winner);
     }
     if(user_data.weapon=="paper" && villain_data.weapon=="scissors"){
+    /*
       user_info[index+3] = (user_info[index+3] + 1);
       user_info[index+5] = (user_info[index+5] + 1);
       villain_info[index2+2] = (villain_info[index2+2] + 1);
       villain_info[index2+6] = (villain_info[index2+6] + 1);
-      winner = villain_info[index2];
+      */
+      user_info[index][3] += 1;
+      user_info[index][5] +=1;
+      villain_info[index2][2]+=1;
+      villain_info[index2][6]+=1;
+      winner = villain_info[index2][0];
       console.log("Winner determined" + winner);
     }
     if(user_data.weapon=="scissors" && villain_data.weapon=="scissors"){
-      user_info[index+4] = (user_info[index+4] + 1);
+      user_info[index][4] += 1;
+      user_info[index][6] +=1;
+      villain_info[index2][2]+=1;
+      villain_info[index2][6]+=1;
+
+    /*  user_info[index+4] = (user_info[index+4] + 1);
       user_info[index+6] = (user_info[index+6] + 1);
       villain_info[index2+4] = (villain_info[index2+4] + 1);
       villain_info[index2+6] = (villain_info[index2+6] + 1);
+      */
       winner = "Tie";
       console.log("Winner determined" + winner);
     }
 
+/*
     var initjoin = user_info.join(",");
     var viljoin = villain_info.join(",");
+    console.log("first user commas join" + initjoin);
+    console.log("first vil commas join" + viljoin);
+
     var rowjoin = Array.from(initjoin).join("\n");
     var vilrow = Array.from(viljoin).join("\n");
-    console.log("rowjoin"+ initjoin);
-    console.log("viljoin" + viljoin);
+    console.log("2nd user row join"+ initjoin);
+    console.log("2nd villain row join" + viljoin);
     console.log("winner" + winner);
+    */
     //var users_file = fs.writeFileSync('data/users.csv', rowjoin, 'utf8');
     //var villains_file = fs.writeFileSync('data/villains.csv',vilrow, 'utf8');
     //console.log("users_file" + users_file );
