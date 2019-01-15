@@ -94,6 +94,8 @@ var user_data = {
   name: request.param.user,
   weapon: request.query.weapon,
 }
+console.log(user_data.weapon + "weapon");
+console.log(user_data.name + "name");
 var villain_data = {
   villain: request.query.villain,
   weapon: "paper"
@@ -166,14 +168,21 @@ for(var i=0; i<rows2.length;i++){
 
 for(var i=0; i<user_info.length; i++){
   //this needs to work
-  if((user_info[i]) == (user_data.name)){
+  console.log("running user loop");
+  console.log("arrayname" + user_info[i]);
+  console.log("inputname" + user_data.name);
+  if(String(user_info[i]) == String(user_data.name)){
     index = i;
+    console.log(index + "this is 1stindex");
     break;
   }
 }
 
 for(var i=0;i<villain_info.length;i++){
-  if(villain_info[i] == villain_data.name){
+  console.log("running villain loop");
+  console.log("arraynamevil" + villain_info[i]);
+  console.log("inputnamevil" + villain_data.name);
+  if(String(villain_info[i]) == String(villain_data.name)){
     index2 = i;
     console.log(index2 + "this is index");
     break;
@@ -186,12 +195,14 @@ for(var i=0;i<villain_info.length;i++){
 
     user_info[index+1] = (user_info[index+1] + 1);
     villain_info[index2+1] = (villain_info[index2+1] + 1);
+
     if(user_data.weapon=="rock" && villain_data.weapon=="paper"){
       user_info[index+3] = (user_info[index+3] + 1);
       user_info[index+7] = (user_info[index+7] + 1);
       villain_info[index2+2] = (villain_info[index2+2] + 1);
       villain_info[index2+5] = (villain_info[index2+5] + 1);
       winner = villain_info[index2];
+      console.log("Winner determined" + winner);
     }
     if(user_data.weapon=="paper" && villain_data.weapon=="paper"){
       user_info[index+4] = (user_info[index+4] + 1);
@@ -199,6 +210,7 @@ for(var i=0;i<villain_info.length;i++){
       villain_info[index2+4] = (villain_info[index2+4] + 1);
       villain_info[index2+5] = (villain_info[index2+5] + 1);
       winner = "Tie";
+      console.log("Winner determined" + winner);
     }
     if(user_data.weapon=="scissors" && villain_data.weapon=="paper"){
       user_info[index+2] = (user_info[index+2] + 1);
@@ -213,6 +225,7 @@ for(var i=0;i<villain_info.length;i++){
       villain_info[index2+4] = (villain_info[index2+4] + 1);
       villain_info[index2+7] = (villain_info[index2+7] + 1);
       winner = "Tie";
+      console.log("Winner determined" + winner);
     }
     if(user_data.weapon=="paper" && villain_data.weapon=="rock"){
       user_info[index+2] = (user_info[index+2] + 1);
@@ -220,6 +233,7 @@ for(var i=0;i<villain_info.length;i++){
       villain_info[index2+3] = (villain_info[index2+3] + 1);
       villain_info[index2+7] = (villain_info[index2+7] + 1);
       winner = user_info[index];
+      console.log("Winner determined" + winner);
     }
     if(user_data.weapon=="scissors" && villain_data.weapon=="rock"){
       user_info[index+3] = (user_info[index+3] + 1);
@@ -227,6 +241,7 @@ for(var i=0;i<villain_info.length;i++){
       villain_info[index2+2] = (villain_info[index2+2] + 1);
       villain_info[index2+7] = (villain_info[index2+7] + 1);
       winner = villain_info[index2];
+      console.log("Winner determined" + winner);
     }
 
     if(user_data.weapon=="rock" && villain_data.weapon=="scissors"){
@@ -235,6 +250,7 @@ for(var i=0;i<villain_info.length;i++){
       villain_info[index2+3] = (villain_info[index2+3] + 1);
       villain_info[index2+6] = (villain_info[index2+6] + 1);
       winner = user_info[index];
+      console.log("Winner determined" + winner);
     }
     if(user_data.weapon=="paper" && villain_data.weapon=="scissors"){
       user_info[index+3] = (user_info[index+3] + 1);
@@ -242,6 +258,7 @@ for(var i=0;i<villain_info.length;i++){
       villain_info[index2+2] = (villain_info[index2+2] + 1);
       villain_info[index2+6] = (villain_info[index2+6] + 1);
       winner = villain_info[index2];
+      console.log("Winner determined" + winner);
     }
     if(user_data.weapon=="scissors" && villain_data.weapon=="scissors"){
       user_info[index+4] = (user_info[index+4] + 1);
@@ -249,6 +266,7 @@ for(var i=0;i<villain_info.length;i++){
       villain_info[index2+4] = (villain_info[index2+4] + 1);
       villain_info[index2+6] = (villain_info[index2+6] + 1);
       winner = "Tie";
+      console.log("Winner determined" + winner);
     }
 
     var initjoin = user_info.join(",");
