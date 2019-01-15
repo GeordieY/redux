@@ -46,10 +46,6 @@ app.get('/login', function(request, response){
   console.log(nameadd + "Name" + typeof(nameadd));
   var file = nameadd.join(",");
   //var vill = [];
-
-
-
-
 //this returns a string  console.log("List of initial villains" + vill2 +  "Datatype" + typeof(vill2));
 //this returns a string  console.log("List of users" + file +  "Datatype" + typeof(file));
 
@@ -92,14 +88,16 @@ app.get('/:user/results', function(request, response){
 //error at the splitting of the CSV.
 var user_data = {
   name: request.param.user,
-  weapon: request.query.weapon,
+  weapon: request.query.weapons,
 }
-console.log(user_data.weapon + "weapon");
+
+//console.log(user_data.weapon + "weapon"); returns weapon selected
 console.log(user_data.name + "name");
 var villain_data = {
-  villain: request.query.villain,
+  villain: request.query.villains,
   weapon: "paper"
 }
+console.log("villain name" + villain_data.name);
 
 
 //  console.log("userdata2" + user_data);
