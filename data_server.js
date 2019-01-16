@@ -1,11 +1,6 @@
 var express = require('express');
 var fs = require('fs');
 var favicon = require('serve-favicon');
-
-var villainlist = [ "Bones", "Gato", "Manny", "Mr.Modern", "Regal", "The Boss", "Comic Hans", "Harry","Mickey","Pixie","Spock","The Magician" ];
-
-
-
 var app = express();
 app.use(express.static('public'));
 app.set('views', __dirname + '/views');
@@ -19,6 +14,9 @@ app.listen(port, function(){
 
 app.get('/', function(request, response){
   var user_data = {};
+  var error = {
+    error: 'blank'
+  }
   response.status(200);
   response.setHeader('Content-Type', 'text/html')
   response.render('index', {user:user_data});
@@ -29,59 +27,20 @@ app.get('/login', function(request, response){
       name: request.query.user_name,
       password: request.query.user_password
   };
+  console.log("Name" + user_data.name);
+  console.log("Password" + user_data.password);
 
-//this data is being saved console.log("This is data password" + user_data.password);
-//this data is being saved console.log("This is data username" + user_data.name);
-
-
-  /* console log isn't being reached? */
-  //console.log("This is userdata" + user_data);
-
-
-  response.status(200);
-  response.setHeader('Content-Type', 'text/html');
-
-
-  var nameadd = [user_data.name, 0, 0, 0, 0, 0, 0, 0];
-  //console.log(nameadd + "Name" + typeof(nameadd));
-  var file = nameadd.join(",");
-  //var vill = [];
-//this returns a string  console.log("List of initial villains" + vill2 +  "Datatype" + typeof(vill2));
-//this returns a string  console.log("List of users" + file +  "Datatype" + typeof(file));
-
-  //console.log("Fileprint" + file);
-
-  /*
-  var k = fs.readFileSync('data/users.csv', 'utf8');
-  if(k.length<=0){
-    var c = ['test', 0, 0, 0, 0, 0, 0, 0, 0];
-    fs.writeFileSync('data/users.csv', c, 'utf8');
-    for(var i=0; i<villainlist.length;i++){
-      var c = [villainlist[i], 0, 0 ,0 ,0 ,0 ,0,0];
-      vill.push(c);
-    //  console.log("hi" + vill[i]);
-    }
-    var vill2= vill.join();
-  }*/
-
-  fs.writeFileSync('data/users.csv', file, 'utf8');
-  //fs.writeFileSync('data/villains.csv', vill2, 'utf8');
-  response.render('game', {user:user_data});
+//adding a user at login: now just automatically
+var data = [user_data.name, user_data.password];
+var datastorage = [];
+var nameadd = [user_data.name, 0, 0, 0, 0, 0, 0, 0];
+var file = nameadd.join(",");
+fs.writeFileSync('data/users.csv', file, 'utf8');
+console.log(fs.readFileSync('data/users.csv','utf8'));
+response.status(200);
+response.setHeader('Content-Type', 'text/html');
+response.render('game', {user:user_data});
 });
-
-/*
-app.get('/game',function(request,response)){
-  var user_data={
-      name: request.query.user_name,
-      password: request.query.user_password
-  };
-
-  console.log("This is userdata" + user_data);
-  response.status(200);
-  response.setHeader('Content-Type', 'text/html');
-  response.render('/:user/results', {user:user_data})
-}
-*/
 
 app.get('/:user/results', function(request, response){
 
@@ -90,30 +49,17 @@ var user_data = {
   name: request.params.user,
   weapon: request.query.weapons
 }
-console.log("userweapon  " + user_data.weapon);
-
-//console.log(user_data.weapon + "weapon"); returns weapon selected
-//console.log(user_data.name + "name");
+/*Need to run a function to input villain strategies
+*/
 var villain_data = {
   name: request.query.villains,
-  weapon: "paper"
+  weapon: "Paper"
 }
-console.log(villain_data.weapon+ "  villainweapon");
-console.log(villain_data.name + "  vilname");
-//console.log("villain" + villain_data.villain);
+  var vilwep = villain_data.weapon;
+  var userwep = user_data.weapon;
+  var compare = vilwep.localeCompare(userwep);
+  console.log(compare);
 
-/*
-if(user_data.weapon == "paper" && villain_data.weapon == "paper"){
-  console.log("true paper check")
-}
-if(user_data.weapon == villain_data.weapon){
-  console.log("direct comparison test");
-}
-*/
-
-//  console.log("userdata2" + user_data);
-  //console.log("vildata" + villain_data);
-  //write to the CSV what we need to add
   var index;
   var index2;
   var user_info = [];
@@ -121,310 +67,138 @@ if(user_data.weapon == villain_data.weapon){
   var winner;
   var users_file = fs.readFileSync('data/users.csv', 'utf8');
   var villains_file = fs.readFileSync('data/villains.csv', 'utf8');
-//  console.log("userfiletype" + typeof(users_file)); //this is a string
-  //console.log("villainfiletype" + typeof(villains_file)); //this is a string
-//  console.log("file1" + users_file);
-//  console.log("file2"+ villains_file);
   var rows = users_file.split('\n');
   var rows2= villains_file.split('\n');
-
-
-
-
-
-
-//  var rows = (users_file.split('\n'));
-//console.log("rows" + rows);
-//  var rows2 = ((villains_file).split('\n'));
- //console.log("This is rows" + rows);
-///console.log("This is rows2" + rows2);
-//console.log("rowtype1" + typeof(rows)); //this is recognized as an object
-//console.log("rowtype2" + typeof(rows2)); //this is recognized as an objectß
-
-  /*
-  next time Georde if we Meet with Gohde and also to think about as we do project
-  01/10/19
-  1) Why is rows and rows2 recognized as object
-    need to be array --> parsed --> data changed
-  2) Must add a sort option by size in terms of each time the data is checked in the stats
-  3) Right now I regenerate villains.csv every time a new user logs in. Is that a problem for now? Can change later. Need to include parsing of csvs to see
-    This may be due to gitignore with the things changing a lot. I will recheck later
-  4) After this -->
-    1) need to get data transferred between CSV and server. If that is done,
-    2) Check Login and update stats based on Login. Need to work on communicating logins and logouts. Next bigger step to save password. Might have to create another separate array
-    3) Create non-uniform distributions for villains
-    4) For game/results --> create loading pages with hands and images. Use ejs to determine.
-    5) Make sure stats is loading results properly.
-    6) Re-format CSS if time permits
-  */
-
-
 //move turn it into an array and parse
 for(var i=0; i<rows.length; i++){
   user_info.push(rows[i].trim().split(","));
-//  console.log("userinfo["+i+"]:" + user_info[i].length+" "+user_info[i]);
-//  console.log("user_info" + user_info); this code is reached
+  console.log("user_info" + user_info);
 }
 for(var i=0; i<rows2.length;i++){
   villain_info.push(rows2[i].trim().split(","));
-  //console.log("vilinfo" + villain_info[i]);
-  //console.log("Villain_info" + villain_info); this code is reached
+  console.log("villain_info" + villain_info);
 }
-
 for(var i=0; i<user_info.length; i++){
-  //this needs to work
-  //console.log("running user loop");
-  //console.log("arrayname" + user_info[i][0]);
-  //console.log("inputname" + user_data.name);
   if(String(user_info[i][0]) == String(user_data.name)){
     index = i;
-    //console.log(index + "this is 1stindex");
     break;
+    console.log("This is index" + index)
   }
 }
-
-/* This is to test the array and each individual parts
- for(var i=0; i<user_info.length;i++){
-    for(var k=0; k<user_info[i].length;k++){
-    console.log("User Data" + user_info[i][k]);
-    }
-  }
-  for(var i=0; i<villain_info.length;i++){
-    for(var k=0; k<villain_info[i].length;k++){
-    console.log("Vil Data" + villain_info[i][k]);
-    }
-  }
-*/
-
-
 for(var i=0;i<villain_info.length;i++){
-//  console.log("running villain loop");
-//  console.log("arraynamevil" + villain_info[i][0]);
-//  console.log("inputnamevil" + villain_data.name);
   if(String(villain_info[i][0]) == String(villain_data.name)){
     index2 = i;
-  //  console.log(index2 + "this is index2");
     break;
+    console.log("This is index2" index2);
   }
 }
-
-    //takes user info of the specific row, increments Games Played, then it increments either the Games Won, Lost, Tied
-
-//+1 = games played, +2=win, +3=loss, +4=tie, +5=paper, +6=scissors, +7=rock this is what each index does
-
-    //user_info[index+1] = (user_info[index+1] + 1));
-    //villain_info[index2+1] = (villain_info[index2+1] + 1);
-
-    user_info[index][1] += 1;
-    villain_info[index2][1] +=1;
-
+    changeIndexValue(user_info[index][1]);
+    changeIndexValue(villain_info[index2][1]);
     console.log("game user played" + user_info[index][1]);
-
-    if(String(user_data.weapon)==="rock" && String(villain_data.weapon)==="paper"){
-      /*
-      user_info[index+3] = (user_info[index+3] + 1);
-      user_info[index+7] = (user_info[index+7] + 1);
-      villain_info[index2+2] = (villain_info[index2+2] + 1);
-      villain_info[index2+5] = (villain_info[index2+5] + 1);
-      winner = villain_info[index2];
-      */
-      user_info[index][3] += 1;
-      user_info[index][7] +=1;
-      villain_info[index2][2]+=1;
-      villain_info[index2][5]+=1;
+    if(compare==-1 && String(villain_data.weapon)==="Paper"){
+      user_info[index][3] = changeIndexValue(user_info[index][3]);
+      user_info[index][7] = changeIndexValue(user_info[index][7]);
+      villain_info[index2][2] = changeIndexValue(villain_info[index2][2]);
+      villain_info[index2][5] = changeIndexValue(villain_info[index2][5]);
       winner= villain_info[index2][0];
       console.log("Winner determined" + winner);
     }
-    if(String(user_data.weapon)=='"paper"' && String(villain_data.weapon)=='"paper"'){
-      /*
-      user_info[index+4] = (user_info[index+4] + 1);
-      user_info[index+5] = (user_info[index+5] + 1);
-      villain_info[index2+4] = (villain_info[index2+4] + 1);
-      villain_info[index2+5] = (villain_info[index2+5] + 1);
-      */
-      user_info[index][4] += 1;
-      user_info[index][5] +=1;
-      villain_info[index2][2]+=1;
-      villain_info[index2][5]+=1;
+    if(compare==0 && villain_data.weapon=="Paper"){
+      user_info[index][4] = changeIndexValue(user_info[index][4]);
+      user_info[index][5] = changeIndexValue(user_info[index][5]);
+      villain_info[index2][4] = changeIndexValue(villain_info[index2][4]);
+      villain_info[index2][5] = changeIndexValue(villain_info[index2][5]);
       winner = "Tie";
       console.log("Winner determined" + winner);
     }
-    if(user_data.weapon=="scissors" && villain_data.weapon=="paper"){
-      /*
-      user_info[index+2] = (user_info[index+2] + 1);
-      user_info[index+6] = (user_info[index+6] + 1);
-      villain_info[index2+3] = (villain_info[index2+3] + 1);
-      villain_info[index2+5] = (villain_info[index2+5] + 1);
-      winner = user_info[index];
-      */
-
-      user_info[index][2] += 1;
-      user_info[index][6] +=1;
-      villain_info[index2][3]+=1;
-      villain_info[index2][5]+=1;
-      winner= user_info[index][0];
+    if(compare==1 && villain_data.weapon=="Paper"){
+      user_info[index][2] = changeIndexValue(user_info[index][2]);
+      user_info[index][6] = changeIndexValue(user_info[index][6]);
+      villain_info[index2][3] = changeIndexValue(villain_info[index2][3]);
+      villain_info[index2][5] = changeIndexValue(villain_info[index2][5]);
+      winner=user_info[index][0];
       console.log("Winner determined" + winner);
     }
-    if(user_data.weapon=="rock" && villain_data.weapon=="rock"){
-      /*
-      user_info[index+4] = (user_info[index+4] + 1);
-      user_info[index+7] = (user_info[index+7] + 1);
-      villain_info[index2+4] = (villain_info[index2+4] + 1);
-      villain_info[index2+7] = (villain_info[index2+7] + 1);
-      */
-      user_info[index][4] += 1;
-      user_info[index][7] +=1;
-      villain_info[index2][2]+=1;
-      villain_info[index2][7]+=1;
+    if(compare==0 && villain_data.weapon=="Rock"){
+      user_info[index][4] = changeIndexValue(user_info[index][4]);
+      user_info[index][7] = changeIndexValue(user_info[index][7]);
+      villain_info[index2][4] = changeIndexValue(villain_info[index2][4]);
+      villain_info[index2][7] = changeIndexValue(villain_info[index2][7]);
       winner = "Tie";
       console.log("Winner determined" + winner);
     }
-    if(user_data.weapon=="paper" && villain_data.weapon=="rock"){
-      /*
-      user_info[index+2] = (user_info[index+2] + 1);
-      user_info[index+5] = (user_info[index+5] + 1);
-      villain_info[index2+3] = (villain_info[index2+3] + 1);
-      villain_info[index2+7] = (villain_info[index2+7] + 1);
-      winner = user_info[index];
-      */
-      user_info[index][2] += 1;
-      user_info[index][5] +=1;
-      villain_info[index2][3]+=1;
-      villain_info[index2][7]+=1;
+    if(compare==1 && villain_data.weapon=="Rock"){
+      user_info[index][2] = changeIndexValue(user_info[index][2]);
+      user_info[index][5] = changeIndexValue(user_info[index][5]);
+      villain_info[index2][3] = changeIndexValue(villain_info[index2][3]);
+      villain_info[index2][7] = changeIndexValue(villain_info[index2][7]);
       winner= user_info[index][0];
       console.log("Winner determined" + winner);
     }
-    if(user_data.weapon=="scissors" && villain_data.weapon=="rock"){
-      /*
-      user_info[index+3] = (user_info[index+3] + 1);
-      user_info[index+6] = (user_info[index+6] + 1);
-      villain_info[index2+2] = (villain_info[index2+2] + 1);
-      villain_info[index2+7] = (villain_info[index2+7] + 1);
-      winner = villain_info[index2];
-      */
-      user_info[index][3] += 1;
-      user_info[index][6] +=1;
-      villain_info[index2][2]+=1;
-      villain_info[index2][7]+=1;
+    if(compare==-1 && villain_data.weapon=="Rock"){
+      user_info[index][3] = changeIndexValue(user_info[index][3]);
+      user_info[index][6] = changeIndexValue(user_info[index][6]);
+      villain_info[index2][2] = changeIndexValue(villain_info[index2][2]);
+      villain_info[index2][7] = changeIndexValue(villain_info[index2][7]);
       winner= villain_info[index2][0];
       console.log("Winner determined" + winner);
     }
-
-    if(user_data.weapon=="rock" && villain_data.weapon=="scissors"){
-      /*
-      user_info[index+2] = (user_info[index+2] + 1);
-      user_info[index+7] = (user_info[index+7] + 1);
-      villain_info[index2+3] = (villain_info[index2+3] + 1);
-      villain_info[index2+6] = (villain_info[index2+6] + 1);
-      winner = user_info[index];
-      */
-
-      user_info[index][2] += 1;
-      user_info[index][7] +=1;
-      villain_info[index2][3]+=1;
-      villain_info[index2][6]+=1;
+    if(compare==1 && villain_data.weapon=="Scissors"){
+      user_info[index][2] = changeIndexValue(user_info[index][2]);
+      user_info[index][7] = changeIndexValue(user_info[index][7]);
+      villain_info[index2][3] = changeIndexValue(villain_info[index2][3]);
+      villain_info[index2][6] = changeIndexValue(villain_info[index2][6]);
       winner= user_info[index][0];
       console.log("Winner determined" + winner);
     }
-    if(user_data.weapon=="paper" && villain_data.weapon=="scissors"){
-    /*
-      user_info[index+3] = (user_info[index+3] + 1);
-      user_info[index+5] = (user_info[index+5] + 1);
-      villain_info[index2+2] = (villain_info[index2+2] + 1);
-      villain_info[index2+6] = (villain_info[index2+6] + 1);
-      */
-      user_info[index][3] += 1;
-      user_info[index][5] +=1;
-      villain_info[index2][2]+=1;
-      villain_info[index2][6]+=1;
+    if(compare==1 && villain_data.weapon=="Scissors"){
+      user_info[index][3] = changeIndexValue(user_info[index][3]);
+      user_info[index][5] = changeIndexValue(user_info[index][5]);
+      villain_info[index2][2] = changeIndexValue(villain_info[index2][2]);
+      villain_info[index2][6] = changeIndexValue(villain_info[index2][6]);
       winner = villain_info[index2][0];
       console.log("Winner determined" + winner);
     }
-    if(user_data.weapon=="scissors" && villain_data.weapon=="scissors"){
-      user_info[index][4] += 1;
-      user_info[index][6] +=1;
-      villain_info[index2][2]+=1;
-      villain_info[index2][6]+=1;
-
-    /*  user_info[index+4] = (user_info[index+4] + 1);
-      user_info[index+6] = (user_info[index+6] + 1);
-      villain_info[index2+4] = (villain_info[index2+4] + 1);
-      villain_info[index2+6] = (villain_info[index2+6] + 1);
-      */
+    if(compare==0 && villain_data.weapon=="Scissors"){
+      user_info[index][4] = changeIndexValue(user_info[index][4]);
+      user_info[index][6] = changeIndexValue(user_info[index][6]);
+      villain_info[index2][4] = changeIndexValue(villain_info[index2][4]);
+      villain_info[index2][6] = changeIndexValue(villain_info[index2][6]);
       winner = "Tie";
       console.log("Winner determined" + winner);
     }
+  var winner_data = {
+    winner: winner
+  }
+  var userstring;
+  var villainstring;
+  for(var i=0; i<user_info.length;i++){
+    for(var k=0; k<user_info[i].length;k++){
+      userstring += (user_info[i][k] + ",");
+      console.log("String check" + user_info[i][k]);
+    }
+    if(i!=user_info.length-1){
+      userstring +="\n"
+    //  console.log("Repieced USer String" + userstring);
+    }
+   }
 
-/*
-    var initjoin = user_info.join(",");
-    var viljoin = villain_info.join(",");
-    console.log("first user commas join" + initjoin);
-    console.log("first vil commas join" + viljoin);
+   //var users_file = fs.writeFileSync('data/users.csv', userstring, 'utf8');
+   for(var i=0; i<villain_info.length;i++){
+     for(var k=0; k<villain_info[i].length;k++){
+        villainstring += (villain_info[i][k] + ",");
+        console.log("String check" + villain_info[i][k]);
+     }
+     if(i!=villain_info.length-1){
+       villainstring += "\n";
+     }
+  console.log("user String" + userstring);
+  console.log("villain String" + villainstring);
 
-    var rowjoin = Array.from(initjoin).join("\n");
-    var vilrow = Array.from(viljoin).join("\n");
-    console.log("2nd user row join"+ initjoin);
-    console.log("2nd villain row join" + viljoin);
-    console.log("winner" + winner);
-    */
-    //var users_file = fs.writeFileSync('data/users.csv', rowjoin, 'utf8');
-    //var villains_file = fs.writeFileSync('data/villains.csv',vilrow, 'utf8');
-    //console.log("users_file" + users_file );
-    //console.log("villains_file" + villains_file);
-
-    console.log("user_data" + JSON.stringify(user_data));
-    console.log("villain_data" + JSON.stringify(villain_data));
+  //  var villains_file = fs.writeFileSync('data/villains.csv', villainstring, 'utf8');
     response.status(200);
     response.setHeader('Content-Type', 'text/html')
-    response.send(JSON.stringify(user_data));
-    response.send(JSON.stringify(villain_data));
-    response.render('results',{winner:winner, users:user_data, villains:villain_data});
-
-//unused array code
-/*for(var i=0; i<rows.length-1;i++){
-console.log("rowtype1" + typeof(rows[i])); //this is recognized as an object
-}
-/*for(var i=0; i<rows2.length-1; i++){
-console.log("rowtype2" + typeof(rows2)); //this is recognized as an objectß
-}
-*/
-/*
-for(var i=0; i<rows.length-1; i++){
-  user_info.push((rows[i].toString()).split(","));
-}
-*/
-/*
-for(var i=0; i<5;i++){
-  console.log("User info search" + user_info[i]);
-}
-*/
-
-//console.log("User array" + user_info.length + "User arra");
-/*
-for(var i = 0; i<(rows.length)-1; i++){
-    user_info = rows[i].split(",");
-  }
-  */
-
-  //split array by commas
-
-
-/*
-for(var i=0; i<rows2.length-1; i++){
-  villain_info.push((rows2[i].toString()).split(","));
-}
-
-
-//  console.log("villain_info test" + villain_info[3]);
-
-  for(var i=0; i<rows2.length-1;i++){
-    villain_info = rows2[i].split(",");
-  }
-*/
-
-
-
-
+    response.render('results',{user:user_data, villain:villain_data, winner:winner_data});
 });
 
 app.get('/rules', function(request, response){
@@ -457,7 +231,6 @@ app.get('/:user/stats', function(request, response){
   }
 
   console.log(user_data);
-
   var villains_file = fs.readFileSync('data/villains.csv','utf8');
   console.log(villains_file);
   //parse the csv
@@ -486,16 +259,148 @@ app.get('/:user/stats', function(request, response){
   response.render('stats', {user: user_data, villain:villain_data});
 });
 
-
-
-
-
-
-
-
-
 app.get('/about', function(request, response){
   response.status(200);
   response.setHeader('Content-Type', 'text/html');
   response.render('about');
 });
+
+function changeIndexValue(element){
+  element = (parseInt(element) + 1);
+  return element;
+}
+
+
+
+
+
+
+
+//cut code:
+//  var rows = (users_file.split('\n'));
+//console.log("rows" + rows);
+//  var rows2 = ((villains_file).split('\n'));
+ //console.log("This is rows" + rows);
+///console.log("This is rows2" + rows2);
+//console.log("rowtype1" + typeof(rows)); //this is recognized as an object
+//console.log("rowtype2" + typeof(rows2)); //this is recognized as an objectß
+  /*
+  next time Georde if we Meet with Gohde and also to think about as we do project
+  01/10/19
+  1) Why is rows and rows2 recognized as object
+    need to be array --> parsed --> data changed
+  2) Must add a sort option by size in terms of each time the data is checked in the stats
+  3) Right now I regenerate villains.csv every time a new user logs in. Is that a problem for now? Can change later. Need to include parsing of csvs to see
+    This may be due to gitignore with the things changing a lot. I will recheck later
+  4) After this -->
+    1) need to get data transferred between CSV and server. If that is done,
+    2) Check Login and update stats based on Login. Need to work on communicating logins and logouts. Next bigger step to save password. Might have to create another separate array
+    3) Create non-uniform distributions for villains
+    4) For game/results --> create loading pages with hands and images. Use ejs to determine.
+    5) Make sure stats is loading results properly.
+    6) Re-format CSS if time permits
+  */
+  //unused array code
+  /*for(var i=0; i<rows.length-1;i++){
+  console.log("rowtype1" + typeof(rows[i])); //this is recognized as an object
+  }
+  /*for(var i=0; i<rows2.length-1; i++){
+  console.log("rowtype2" + typeof(rows2)); //this is recognized as an objectß
+  }
+  */
+  /*
+  for(var i=0; i<rows.length-1; i++){
+    user_info.push((rows[i].toString()).split(","));
+  }
+  */
+  /*
+  for(var i=0; i<5;i++){
+    console.log("User info search" + user_info[i]);
+  }
+  */
+
+  //console.log("User array" + user_info.length + "User arra");
+  /*
+  for(var i = 0; i<(rows.length)-1; i++){
+      user_info = rows[i].split(",");
+    }
+    */
+
+    //split array by commas
+
+
+  /*
+  for(var i=0; i<rows2.length-1; i++){
+    villain_info.push((rows2[i].toString()).split(","));
+  }
+
+
+  //  console.log("villain_info test" + villain_info[3]);
+
+    for(var i=0; i<rows2.length-1;i++){
+      villain_info = rows2[i].split(",");
+    }
+  */
+
+  // This is to test the array and each individual parts
+  /*
+   for(var i=0; i<user_info.length;i++){
+      for(var k=0; k<user_info[i].length;k++){
+      console.log("User Data" + user_info[i][k]);
+      }
+    }
+    for(var i=0; i<villain_info.length;i++){
+      for(var k=0; k<villain_info[i].length;k++){
+      console.log("Vil Data" + villain_info[i][k]);
+      }
+    }
+    */
+
+    /*
+    for(var i=0; i<rows.length; i++){
+      datastorage.push(rows[i].trim().split(","));
+    }
+    //console.log("log" + datastorage);
+
+    if(datastorage.includes(user_data.name)){
+        boolean = true;
+    }
+    else{
+        boolean=false;
+    }
+
+    if(boolean=false){
+      fs.writeFileSync('data/userinfo.csv', data.join(","), 'utf8');
+      var nameadd = [user_data.name, 0, 0, 0, 0, 0, 0, 0];
+      var file = nameadd.join(",");
+      fs.writeFileSync('data/users.csv', file, 'utf8');
+      response.render('game', {user:user_data, error:error});
+    }
+
+
+
+    /*
+    else{
+      var namecheck;
+      for(var i=0; i<datastorage.length;i++){
+        if(datastorage[i][0] == user_data.name){
+          namecheck = i;
+          break;
+        }
+        else{
+          continue;
+        }
+      }
+
+      if(user_data.password == String(datastorage[namecheck][1])){
+          response.render('game', {user:user_data, error:error});
+        }
+
+        else{
+          error = {
+            error:'error'
+          }
+          response.render('index', {error:error});
+        }
+    }
+    */

@@ -3,17 +3,34 @@
 <head>
   <title>P,R,S - Results</title>
   <link rel="stylesheet" href="styles/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
  </head>
+
+ <script>
+  if(winner.winner == "Tie"){
+    $("#resultswinner").HTML("The game has been tied. No winner can be determined");
+  }
+ </script>
+
  <body>
    <% include global/header %>
    <div id="results">
      <h2> Results: Who Won the Game? </h2>
-     <h3> <%user.name%> chose <%user.weapon%></h3>
-     <h4> <%villain.name%> chose <%villain.weapon%> </h4>
-     <h5> <%if(winner.winner=="Tie"){winner.winner = "It is a tie game";}else if(winner.winner=winner.winner}%> + The winner is +<%winner.winner%></h5> <!-- Write some embedded javascript to decide results of the game. If (rock vs paper.. etc) Then put a victory image-->
+     <br><br>
+        <%=user.name%> chose <%=user.weapon%>
+    <br><br>
+        <%=villain.name%> chose <%=villain.weapon%>
+    <br><br>
+    <div id="resultswinner" name="resultswinner">
+        The winner is <%=winner.winner%>
+      </div>
+    <br><br>
+    </div>
+  <form action="/playAgain" method="Get">
      <button type="button" id="playAgain"> Play Again </button>
+    <br>
      <button type ="button" id="LogOut"> Log Out of Our Account </button>
-  </div>
+
    <% include global/footer %>
   <script src="scripts/scripts.js"></script>
 </body>
