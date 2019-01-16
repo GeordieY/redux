@@ -12,6 +12,9 @@ app.listen(port, function(){
   console.log('Server started at '+ new Date()+', on port ' + port+'!');
 });
 
+var username;
+var password;
+
 app.get('/', function(request, response){
   var user_data = {};
   var error = {
@@ -27,14 +30,18 @@ app.get('/login', function(request, response){
       name: request.query.user_name,
       password: request.query.user_password
   };
+  username = user_data.name;
+  password = user_data.password;
+
   console.log("Name" + user_data.name);
   console.log("Password" + user_data.password);
 
 //adding a user at login: now just automatically
-var data = [user_data.name, user_data.password];
-var datastorage = [];
-var nameadd = [user_data.name, 0, 0, 0, 0, 0, 0, 0];
+//var data = [user_data.name, user_data.password];
+//var datastorage = [];
+var nameadd = [user_data.name, 0, 0, 0, 0, 0, 0, 0, user_data.password];
 var file = nameadd.join(",");
+console.log(file);
 fs.writeFileSync('data/users.csv', file, 'utf8');
 console.log(fs.readFileSync('data/users.csv','utf8'));
 response.status(200);
@@ -49,6 +56,7 @@ var user_data = {
   name: request.params.user,
   weapon: request.query.weapons
 }
+//console.log("Name" + user_data.name);
 /*Need to run a function to input villain strategies
 */
 var villain_data = {
@@ -58,8 +66,7 @@ var villain_data = {
   var vilwep = villain_data.weapon;
   var userwep = user_data.weapon;
   var compare = vilwep.localeCompare(userwep);
-  console.log(compare);
-
+  //console.log(compare);
   var index;
   var index2;
   var user_info = [];
@@ -69,27 +76,23 @@ var villain_data = {
   var villains_file = fs.readFileSync('data/villains.csv', 'utf8');
   var rows = users_file.split('\n');
   var rows2= villains_file.split('\n');
-//move turn it into an array and parse
+
 for(var i=0; i<rows.length; i++){
   user_info.push(rows[i].trim().split(","));
-  console.log("user_info" + user_info);
 }
 for(var i=0; i<rows2.length;i++){
   villain_info.push(rows2[i].trim().split(","));
-  console.log("villain_info" + villain_info);
 }
 for(var i=0; i<user_info.length; i++){
   if(String(user_info[i][0]) == String(user_data.name)){
     index = i;
     break;
-    console.log("This is index" + index)
   }
 }
 for(var i=0;i<villain_info.length;i++){
   if(String(villain_info[i][0]) == String(villain_data.name)){
     index2 = i;
     break;
-    console.log("This is index2" index2);
   }
 }
     changeIndexValue(user_info[index][1]);
@@ -170,41 +173,50 @@ for(var i=0;i<villain_info.length;i++){
   var winner_data = {
     winner: winner
   }
-  var userstring;
-  var villainstring;
-  for(var i=0; i<user_info.length;i++){
-    for(var k=0; k<user_info[i].length;k++){
-      userstring += (user_info[i][k] + ",");
-      console.log("String check" + user_info[i][k]);
+var userstring = "";
+var villainstring = "";
+for(var i=0; i<user_info.length;i++){
+  for(var k=0;k<user_info[i].length;k++){
+    if(k!=user_info[i].length-1){
+      userstring += user_info[i][k] + ",";
     }
-    if(i!=user_info.length-1){
-      userstring +="\n"
-    //  console.log("Repieced USer String" + userstring);
+  }
+  if(i!=user_info.length-1){
+    userstring += "\n";
+  }
+}
+
+for(var i=0; i<villain_info.length;i++){
+  for(var k=0;k<villain_info[i].length;k++){
+    if(k!=villain_info[i].length-1){
+      villainstring += villain_info[i][k] + ",";
     }
-   }
-
-   //var users_file = fs.writeFileSync('data/users.csv', userstring, 'utf8');
-   for(var i=0; i<villain_info.length;i++){
-     for(var k=0; k<villain_info[i].length;k++){
-        villainstring += (villain_info[i][k] + ",");
-        console.log("String check" + villain_info[i][k]);
-     }
-     if(i!=villain_info.length-1){
-       villainstring += "\n";
-     }
-  console.log("user String" + userstring);
-  console.log("villain String" + villainstring);
-
-  //  var villains_file = fs.writeFileSync('data/villains.csv', villainstring, 'utf8');
+  }
+  if(i!=villain_info.length-1){
+    villainstring += "\n";
+  }
+}
+var users_file = fs.writeFileSync('data/users.csv', userstring, 'utf8');
+var villains_file = fs.writeFileSync('data/villains.csv', villainstring, 'utf8');
     response.status(200);
-    response.setHeader('Content-Type', 'text/html')
+    response.setHeader('Content-Type', 'text/html');
     response.render('results',{user:user_data, villain:villain_data, winner:winner_data});
+});
+
+app.get('/playagain',function(request,response){
+  var user_data = {
+    name: username,
+    password: password
+  }
+  response.status(200);
+  response.setHeader('Content-Type','text/html');
+  response.render('game', {user:user_data});
 });
 
 app.get('/rules', function(request, response){
   //load the csv
   response.status(200);
-  response.setHeader('Content-Type', 'text/html')
+  response.setHeader('Content-Type', 'text/html');
   response.render('rules');
 });
 
@@ -227,9 +239,9 @@ app.get('/:user/stats', function(request, response){
     user["Paper Played"] = user_info[5];
     user["Scissors Played"] = user_info[6];
     user["Rock Played"] = user_info[7];
+    user["Password"] = user_info[8];
     user_data.push(user);
   }
-
   console.log(user_data);
   var villains_file = fs.readFileSync('data/villains.csv','utf8');
   console.log(villains_file);
@@ -252,8 +264,6 @@ app.get('/:user/stats', function(request, response){
     villains_data.push(villain);
   }
   console.log(villains_data);
-
-
   response.status(200);
   response.setHeader('Content-Type', 'text/html');
   response.render('stats', {user: user_data, villain:villain_data});
@@ -264,6 +274,8 @@ app.get('/about', function(request, response){
   response.setHeader('Content-Type', 'text/html');
   response.render('about');
 });
+
+
 
 function changeIndexValue(element){
   element = (parseInt(element) + 1);
@@ -404,3 +416,32 @@ function changeIndexValue(element){
         }
     }
     */
+
+    /*
+    for(var i=0; i<user_info.length;i++){
+      for(var k=0; k<user_info[i].length;k++){
+      //  userstring += (user_info[i][k] + ",");
+        console.log("String check" + user_info[i][k]);
+      }
+      if(i!=user_info.length-1){
+        userstring +="\n"
+      //  console.log("Repieced USer String" + userstring);
+      }
+     }
+  */
+     //var users_file = fs.writeFileSync('data/users.csv', userstring, 'utf8');
+
+  /*
+     for(var i=0; i<villain_info.length;i++){
+       for(var k=0; k<villain_info[i].length;k++){
+          villainstring += (villain_info[i][k] + ",");
+          console.log("String check" + villain_info[i][k]);
+       }
+       if(i!=villain_info.length-1){
+         villainstring += "\n";
+       }
+     }
+    console.log("user String" + userstring);
+    console.log("villain String" + villainstring);
+  */
+    //  var villains_file = fs.writeFileSync('data/villains.csv', villainstring, 'utf8');
