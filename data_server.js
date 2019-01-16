@@ -172,11 +172,8 @@ for(var i=0;i<villain_info.length;i++){
   }
 var userstring = "";
 var villainstring = "";
-<<<<<<< HEAD
 
 /*
-=======
->>>>>>> 2b5a041c085b8cead8b15689f77548f81e5e0d94
 for(var i=0; i<user_info.length-1;i++){
   //console.log(user_info.length);
   for(var k=0;k<user_info[i].length;k++){
@@ -190,10 +187,6 @@ for(var i=0; i<user_info.length-1;i++){
       }
     }
   }
-<<<<<<< HEAD
-=======
-
->>>>>>> 2b5a041c085b8cead8b15689f77548f81e5e0d94
 }
 
 for(var i=0; i<villain_info.length-1;i++){
@@ -483,7 +476,7 @@ function villainthrow(villain,userchoice,villainschoice){
     }
 //throws depending on what last villain chose
     else if(villain == "Harry"){
-      if(villainsthrowsarray[villainsthrowsarray.length1][1]=="undefined"){
+      if(villainsthrowsarray[villainsthrowsarray.length-1][1]=="undefined"){
         choice = "Rock";
       }
       else if(villainsthrowsarray[villainsthrowsarray.length-1][1]!=="Paper"){
