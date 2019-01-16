@@ -54,3 +54,15 @@ contactInfo {
   height: auto;
   /* transform: rotate(25deg); */
 }
+
+#RuleLink {
+  text-align: left;
+}
+
+#StatsLink {
+  text-align: center;
+}
+
+#AboutLink {
+  text-align: right;
+}
