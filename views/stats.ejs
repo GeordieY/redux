@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+Games_Lost<!DOCTYPE html>
 <html>
 <head>
   <title>P,R,S - Stats</title>
@@ -9,38 +9,95 @@
   <% include global/header %>
 
   <div id="stats">
-    <h2>Stats- ____ games played</h2>
+    <h2> User Stats</h2>
     <table>
       <tr>
-        <th class="top_row">Player Name</th>
-        <th class="top_row">Paper </th>
-        <th class="top_row">Rock </th>
-        <th class="top_row">Scissors </th>
-        <th class="top_row">Wins </th>
-      </tr>
-      <tr>
+       <th class="top_row">Player Name</th>
+       <th class="top_row">Games Played</th>
+       <th class="top_row">Wins </th>
+       <th class="top_row">Losses </th>
+       <th class = "top_row"> Ties </th>
+       <th class="top_row">Win Percentage</th>
+       <th class="top_row">Rock %</th>
+       <th class="top_row">Paper %</th>
+       <th class="top_row">Scissors %</th>
+     </tr>
 
-    <!-- Need to figure out how to call EJS variables in this file to list stats from our dataserver.js--->
-        <!--<%for(var i=0;i< users.length;i++)%>
-        <th><span class="player_name_span"></span>  </th>
-        <td> <%users[i]["Name"]%></td>
-        <td> <%users[i]["GamesPlayed"]%></td>
-        <td> <%users[i]["GamesWon"]%></td>
-        <td> <%users[i]["GamesLost"]%></td>
-      -->
-          <!--need to add GameTied  recognize arithmetic correct w wrong answer. Int problem with data server, you can change it to ParseInt with arithmetic operators  -->
-      <!--  <td> <users[i]</td>-->
-      </tr>
-
-
-      <tr>
-        <th> B(r)owser </th>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-      </tr>
+      <%for(var i=0;i< user["player"].length;i++){%>
+        <%if(user["player"][i]["Games_Played"]>0){%>
+          <tr>
+          <td><span class="player_name_span"><%user["player"][i]["Name"]%> </span> </td>
+          <td> <%user["player"][i]["Name"]%></td>
+          <td> <%user["player"][i]["Games_Played"]%></td>
+          <td> <%user["player"][i]["Games_Won"]%></td>
+          <td> <%user["player"][i]["Games_Lost"]%> </td>
+          <td> <%user["player"][i]["Games_Tied"]%> </td>
+          <td> <%Math.round((user["player"][i]["Games_Won"])/(user["player"][i]["Games_Played"]))%> </td>
+          <td> <%Math.round((user["player"][i]["Rock_Played"])/(user["player"][i]["Games_Played"]))%> </td>
+          <td> <%Math.round((user["player"][i]["Paper_Played"])/(user["player"][i]["Games_Played"]))%> </td>
+          <td> <%Math.round((user["player"][i]["Scissors_Played"])/(user["player"][i]["Games_Played"]))%> </td>
+          </tr>
+          <% } else{ %>
+            <tr>
+                <td><span class="player_name_span"><%user["player"][i][0]%> </span> </td>
+                <td> 0 </td>
+                <td> 0 </td>
+                <td> 0 </td>
+                <td> 0 </td>
+                <td> 0 </td>
+                <td> 0 </td>
+                <td> 0 </td>
+                <td> 0 </td>
+          </tr>
+          <% } %>
+          <% } %>
     </table>
+
+    <h3> Villain Stats</h2>
+    <table>
+      <tr>
+       <th class="top_row">Player Name</th>
+       <th class="top_row">Games Played</th>
+       <th class="top_row">Wins </th>
+       <th class="top_row">Losses </th>
+       <th class = "top_row"> Ties </th>
+       <th class="top_row">Win Percentage</th>
+       <th class="top_row">Rock %</th>
+       <th class="top_row">Paper %</th>
+       <th class="top_row">Scissors %</th>
+     </tr>
+
+      <%for (var i=0;i< user["villain"].length;i++){%>
+        <%if(user["villain"][i]["Games_Played"]>0){%>
+          <tr>
+          <td><span class="player_name_span"><%user["villain"][i]["Name"]%> </span> </td>
+          <td> <%user["villain"][i]["Games_Played"]%></td>
+          <td> <%user["villain"][i]["Games_Won"]%></td>
+          <td> <%user["villain"][i]["Games_Lost"]%></td>
+          <td> <%user["villain"][i]["Games_Tied"]%> </td>
+          <td> <%Math.round((user["villain"][i]["Games_Won"])/(user["villain"][i]["Games_Played"]))%> </td>
+          <td> <%Math.round((user["villain"][i]["Rock_Played"])/(user["villain"][i]["Games_Played"]))%> </td>
+          <td> <%Math.round((user["villain"][i]["Paper_Played"])/(user["villain"][i]["Games_Played"]))%> </td>
+          <td> <%Math.round((user["villain"][i]["Scissors_Played"])/(user["villain"][i]["Games_Played"]))%> </td>
+          </tr>
+          <% } else{ %>
+            <tr>
+                <td><span class="player_name_span"><%user["villain"][i][0]%> </span> </td>
+                <td> 0 </td>
+                <td> 0 </td>
+                <td> 0 </td>
+                <td> 0 </td>
+                <td> 0 </td>
+                <td> 0 </td>
+                <td> 0 </td>
+                <td> 0 </td>
+          </tr>
+          <% } %>
+          <% } %>
+    </table>
+    <form action="/playagain" method="Get">
+       <input type="submit" name="Play Again" value="Play Again!">
+    </form>
   </div>
   <% include global/footer %>
   <script src="scripts/scripts.js"></script>
