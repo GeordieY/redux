@@ -1,6 +1,8 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald:600');
+
 h1 {
   color: #ff0000;
-  background-color: #cccccc;
+  background-color: #f4d69f;
   text-align: center;
 }
 
@@ -9,8 +11,8 @@ div {
   margin-bottom: 50px;
   margin-right: 50px;
   margin-left: 50px;
-  background-color: #ffffff;
-  background-color: #dddddd;
+
+  background-color: #f4d69f;
 
 }
 table, th, td {
@@ -27,6 +29,15 @@ table, th, td {
 .visible{
   display:block;
 }
+
+html, body {
+  background-color: #4842f4;
+  font-family: 'Oswald', sans-serif;
+  width: 99.3%;
+  height: 100%;
+  text-shadow: 2px;
+}
+
 
 contactInfo {
   color: black;
