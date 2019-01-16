@@ -217,6 +217,16 @@ app.get('/rules', function(request, response){
   response.render('rules');
 });
 
+/*
+  Must do these:
+    1) Get Stats to Populate and WORK
+    2) Insert photos into Results.ejs
+    3) insert photos into game.EJS
+    4) Get a Login-Logout Function working
+    5) Check CSS issue on results.ejs and get CSS on file working
+
+*/
+
 app.get('/stats', function(request, response){
   var users_file = fs.readFileSync('data/users.csv','utf8');
   //console.log("File" + users_file);
