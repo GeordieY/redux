@@ -483,7 +483,7 @@ function villainthrow(villain,userchoice,villainschoice){
     }
 //throws depending on what last villain chose
     else if(villain == "Harry"){
-      if(villainsthrowsarray[villainsthrowsarray.length1][1]=="undefined"){
+      if(villainsthrowsarray[villainsthrowsarray.length-1][1]=="undefined"){
         choice = "Rock";
       }
       else if(villainsthrowsarray[villainsthrowsarray.length-1][1]!=="Paper"){
