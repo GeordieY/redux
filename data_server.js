@@ -172,6 +172,7 @@ for(var i=0;i<villain_info.length;i++){
   }
 var userstring = "";
 var villainstring = "";
+// <<<<<<< HEAD
 
 /*
 for(var i=0; i<user_info.length-1;i++){
