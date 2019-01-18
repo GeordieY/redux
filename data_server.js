@@ -176,6 +176,48 @@ var villainstring = "";
 
 /*
 for(var i=0; i<user_info.length-1;i++){
+  //console.log("Info" + user_info[i] + "Type" + typeof(user_info[i]));
+  for(var k=0; k<user_info[i].length; k++){
+    //console.log("Info2" + user_info[i][k] + "Other" + typeof(user_info[i][k]));
+    if(k!==user_info[i].length-1){
+      var c = ",";
+      var info = user_info[i][k];
+      var l = info + c;
+      userstring += l;
+    }
+    else{
+     var info = user_info[i][k];
+     var q = "\n";
+     var l = info + q;
+     userstring += l;
+    }
+  }
+}
+
+for(var i=0; i<villain_info.length-1;i++){
+  //console.log("Info" + villain_info[i] + "Type" + typeof(villain_info[i]));
+  for(var k=0; k<villain_info[i].length; k++){
+    if(k!==villain_info[i].length-1){
+      var c = ",";
+      var info = villain_info[i][k];
+      var l = info + c;
+      villainstring += l;
+    }
+    else{
+     var info = user_info[i][k];
+     var q = "\n";
+     var l = info + q;
+     villainstring += l;
+    }
+  //  console.log("Info2" + villain_info[i][k] + "Other" + typeof(villain_info[i][k]));
+  }
+}
+*/
+console.log("userstring" + userstring);
+console.log("villainstring" + villainstring);
+
+/*
+for(var i=0; i<user_info.length-1;i++){
   //console.log(user_info.length);
   for(var k=0;k<user_info[i].length;k++){
     if(k!=user_info[i].length-1){
@@ -395,7 +437,7 @@ function villainthrow(villain,userchoice,villainschoice){
 
         }
       }
-      else if(random>5 && random<7){
+      else if(random<5 && random>3){
         choice = userchoice;
 
       }
