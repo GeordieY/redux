@@ -1,4 +1,4 @@
-Games_Lost<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
   <title>P,R,S - Stats</title>
@@ -56,7 +56,7 @@ Games_Lost<!DOCTYPE html>
     <h3> Villain Stats</h2>
     <table>
       <tr>
-       <th class="top_row">Player Name</th>
+       <th class="top_row">Villian Name</th>
        <th class="top_row">Games Played</th>
        <th class="top_row">Wins </th>
        <th class="top_row">Losses </th>
@@ -95,6 +95,35 @@ Games_Lost<!DOCTYPE html>
           <% } %>
           <% } %>
     </table>
+
+
+    <div id "strats">
+      <ul>
+        <li> Bones will randomly throws paper, rock, or scissors.</li>
+        <li> Manny will always throw paper. </li>
+        <li> Regal will always throw rock.</li>
+        <li> Mickey will always throw scissors.</li>
+        <li> Gato will choose a randomly generated weapon and keep it for the whole time.</li>
+        <li> Mr. Modern will be randomly assigned a weapon, but then he will sometimes choose to win, lose, or tie, with the weighting towards losing. </li>
+
+        <li> The Boss will always win.</li>
+        <li> Comic Hans will always lose just like Comic Sans.</li>
+        <li> Harry will throw depending on what thet last villian threw.
+            <ul>
+              <li> For example, if the last villain threw paper, he will throw scissors.</li>
+              <li> If the last villian threw scissors, he will throw paper.</li>
+            </ul>
+        </li>
+
+        <li> Pixie will randomly throws paper, rock, or scissors. </li>
+        <li> Spock will randomly throws paper, rock, or scissors. </li>
+        <li> The Magician will never throw the same thing twice.</li>
+        <!-- <li> The Ref is just not implemented yet </li> -->
+
+
+    </div>
+
+
     <form action="/playagain" method="Get">
        <input type="submit" name="Play Again" value="Play Again!">
     </form>
