@@ -175,6 +175,8 @@ var villainstring = "";
 // <<<<<<< HEAD
 
 /*
+=======
+>>>>>>> 2b5a041c085b8cead8b15689f77548f81e5e0d94
 for(var i=0; i<user_info.length-1;i++){
   //console.log(user_info.length);
   for(var k=0;k<user_info[i].length;k++){
@@ -188,6 +190,10 @@ for(var i=0; i<user_info.length-1;i++){
       }
     }
   }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2b5a041c085b8cead8b15689f77548f81e5e0d94
 }
 
 for(var i=0; i<villain_info.length-1;i++){
@@ -441,9 +447,11 @@ function villainthrow(villain,userchoice,villainschoice){
         choice = userchoice;
       }
     }
+//Always throw Rock
     else if(villain == "Regal"){
-      choice = villainschoice
+      choice = "Rock";
     }
+
 
   //The Boss: Always Wins
     else if(villain == "The Boss"){
@@ -491,9 +499,11 @@ function villainthrow(villain,userchoice,villainschoice){
       }
     }
 
+//Always throw Scissors
     else if(villain == "Mickey"){
-      choice = villainschoice;
+      choice = "Scissors";
     }
+
     else if(villain == "Pixie"){
       choice = villainschoice;
     }
