@@ -43,6 +43,7 @@ app.get('/login', function(request, response){
 
 var users_file = fs.readFileSync('data/users.csv', 'utf8');
 var rows = users_file.split('\n');
+var user_info = [];
 for(var i=0; i<rows.length; i++){
   user_info.push(rows[i].trim().split(","));
 }

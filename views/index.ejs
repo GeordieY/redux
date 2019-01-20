@@ -7,7 +7,11 @@
 
 <body>
   <% include global/header %> <!-- All this does is load the header we have -->
-  <div id="feedback">
+
+  <div id="feedback" class = "negative">
+    <%if (user.failure === 4){%>
+      Wrong Password
+    <%} else {%>Please Log In<%}%>
   </div>
   <div id="enter_name">
     <h2>Welcome to Paper, Rock, Scissors</h2>
