@@ -44,12 +44,12 @@ app.get('/login', function(request, response){
 var users_file = fs.readFileSync('data/users.csv', 'utf8');
 var rows = users_file.split('\n');
 var user_info = [];
+var userstring = "";
 for(var i=0; i<rows.length; i++){
   user_info.push(rows[i].trim().split(","));
 }
 
 for(var i=0; i<user_info.length; i++){
-
   if(String(user_info[i][0]) == String(user_data.name)){
     if(String(user_info[i][8]) == String(user_data.password)){
       response.status(200);
@@ -75,18 +75,39 @@ for(var i=0; i<user_info.length; i++){
 
   else if(String(user_info[i][0]!= String(user_data.name))){
     if(i!=user_info.length-1){
+      var c = user_info[i].toString();
+      var k = "\n";
+      userstring += (c+k);
       continue;
     }
     else{
-    //if user doesn't exist add them
-    var nameadd = [user_data.name, 0, 0, 0, 0, 0, 0, 0, user_data.password];
-    var file = nameadd.join(",");
-    file += "\n";
-    fs.writeFileSync('data/users.csv', file, 'utf8');
+      var nameadd = [user_data.name, 0, 0, 0, 0, 0, 0, 0, user_data.password];
+      var file = nameadd.join(",");
+      file += "\n";
+      userstring += file;
+      fs.writeFileSync('data/users.csv', userstring, 'utf8');
+      console.log("New account created");
+      response.status(200);
+      response.setHeader('Content-Type', 'text/html');
+      response.render('game', {user:user_data});
+
+    }
+/*
+    else{
+        var c = (user_info[i].toString());
+        var k = "\n";
+        userstring += (c+k);
+        var nameadd = [user_data.name, 0, 0, 0, 0, 0, 0, 0, user_data.password];
+        var file = nameadd.join(",");
+        file += "\n";
+        userstring += file;
+        fs.writeFileSync('data/users.csv', userstring, 'utf8');
+        console.log("New account created");
     response.status(200);
     response.setHeader('Content-Type', 'text/html');
     response.render('game', {user:user_data});
     }
+    */
   }
 
 //}
@@ -278,7 +299,7 @@ app.get('/stats', function(request, response){
   var villain_data = [];
   for(var i=0;i<rows.length;i++){
     var userdata = rows[i].trim().split(",");
-    console.log("Important" + userdata);
+    //console.log("Important" + userdata);
     var user = {};
     user["name"] = userdata[0];
     user["total_games"] = parseInt(userdata[1]);
@@ -331,7 +352,7 @@ app.get('/about', function(request, response){
 
 function changeIndexValue(element){
   element = (parseInt(element) + 1);
-  console.log("Called");
+  //console.log("Called");
   return element;
 }
 
