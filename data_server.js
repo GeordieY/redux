@@ -50,33 +50,34 @@ for(var i=0; i<rows.length; i++){
 
 for(var i=0; i<user_info.length; i++){
 
-if(i<user_info.length-1){
-  //if this isn't the last user, check name and password
   if(String(user_info[i][0]) == String(user_data.name)){
     if(String(user_info[i][8]) == String(user_data.password)){
       response.status(200);
       response.setHeader('Content-Type', 'text/html');
       response.render('game', {user:user_data});
-    //if they are both equal render game
+      console.log(users_file);
+      console.log("Login to previous account successful");
     }
+    //if username is not the same
     else{
       //if password doesn't match user don't use it
       var userf_data = {
         failure: 4
       }
+      console.log("failure");
+      console.log("failure");
       response.status(200);
       response.setHeader('Content-Type', 'text/html');
       response.render('index', {user:userf_data});
+      //load response
     }
   }
-  else{
-    //if the name doesn't exist, then continue
-    continue;
-  }
-}
 
-else{
-  if(String(user_info[i][0]!= String(user_data.name))){
+  else if(String(user_info[i][0]!= String(user_data.name))){
+    if(i!=user_info.length-1){
+      continue;
+    }
+    else{
     //if user doesn't exist add them
     var nameadd = [user_data.name, 0, 0, 0, 0, 0, 0, 0, user_data.password];
     var file = nameadd.join(",");
@@ -85,43 +86,12 @@ else{
     response.status(200);
     response.setHeader('Content-Type', 'text/html');
     response.render('game', {user:user_data});
-  }
-  else{
-    if(String(user_info[i][8]) == String(user_data.password)){
-      response.status(200);
-      response.setHeader('Content-Type', 'text/html');
-      response.render('game', {user:user_data});
-    //if they are both equal render game
-    }
-    else{
-      //if password doesn't match user don't use it
-      var userf_data = {
-        failure: 4
-      }
-      response.status(200);
-      response.setHeader('Content-Type', 'text/html');
-      response.render('index', {user:userf_data});
     }
   }
-}
+
+//}
 
 }
-
-
-
-
-/*
-var nameadd = [user_data.name, 0, 0, 0, 0, 0, 0, 0, user_data.password];
-var file = nameadd.join(",");
-file += "\n";
-fs.writeFileSync('data/users.csv', file, 'utf8');
-response.status(200);
-response.setHeader('Content-Type', 'text/html');
-response.render('game', {user:user_data});
-*/
-
-
-
 });
 
 app.get('/:user/results', function(request, response){
@@ -256,98 +226,13 @@ for(var i=0;i<user_info.length-1;i++){
   var c = (user_info[i].toString());
   var k = "\n";
   userstring += (c+k);
-  //console.log("usefin" + userstring + typeof(userstring));
-  //console.log("string change" + user_info[i].toString());
-  //console.log("userinfo" + typeof(user_info[i]));
-  //for(var k=0;k<user_info[i].length;k++){
-    //console.log("userinfo  " + user_info[i][k] + "type " + typeof(user_info[i][k]));
-
-  //}
-  //or(var k=0;k<user_info[i] + )
 }
 
 for(var i=0; i<villain_info.length-1;i++){
   var c = (villain_info[i].toString());
   var k = "\n";
   villainstring += (c+k);
-  //console.log("vilfin" + villainstring + typeof(villainstring));
-  //  console.log("string change" + villain_info[i].toString());
-//  for(var k=0;k<villain_info[i].length;k++){
-  //  console.log("vilinfo  " + villain_info[i][k] + "type " + typeof(villain_info[i][k]));
-//  }
-//  console.log("vilinfo" + typeof(villain_info[i]));
 }
-
-/*
-for(var i=0; i<user_info.length-1;i++){
-  //console.log("Info" + user_info[i] + "Type" + typeof(user_info[i]));
-  for(var k=0; k<user_info[i].length; k++){
-    //console.log("Info2" + user_info[i][k] + "Other" + typeof(user_info[i][k]));
-    if(k!==user_info[i].length-1){
-      var c = ",";
-      var info = user_info[i][k];
-      var l = info + c;
-      userstring += l;
-    }
-    else{
-     var info = user_info[i][k];
-     var q = "\n";
-     var l = info + q;
-     userstring += l;
-    }
-  }
-}
-
-for(var i=0; i<villain_info.length-1;i++){
-  //console.log("Info" + villain_info[i] + "Type" + typeof(villain_info[i]));
-  for(var k=0; k<villain_info[i].length; k++){
-    if(k!==villain_info[i].length-1){
-      var c = ",";
-      var info = villain_info[i][k];
-      var l = info + c;
-      villainstring += l;
-    }
-    else{
-     var info = user_info[i][k];
-     var q = "\n";
-     var l = info + q;
-     villainstring += l;
-    }
-  //  console.log("Info2" + villain_info[i][k] + "Other" + typeof(villain_info[i][k]));
-  }
-}
-*/
-console.log("userstring" + userstring);
-console.log("villainstring" + villainstring);
-
-/*
-for(var i=0; i<user_info.length-1;i++){
-  //console.log(user_info.length);
-  for(var k=0;k<user_info[i].length;k++){
-    if(k!=user_info[i].length-1){
-      console.log(k);
-      userstring += (user_info[i][k] + ",");
-    }
-    else{
-      if(i!=user_info.length-1){
-      userstring += (user_info[i][k] + "\n");
-      }
-    }
-  }
-
-for(var i=0; i<villain_info.length-1;i++){
-  for(var k=0;k<villain_info[i].length;k++){
-    if(k!=villain_info[i].length-1){
-      villainstring += villain_info[i][k] + ",";
-    }
-    else{
-      if(i!=user_info.length-1){
-        userstring += (user_info[i][k] + "\n");
-      }
-    }
-  }
-}
-*/
 var users_file = fs.writeFileSync('data/users.csv', userstring, 'utf8');
 var villains_file = fs.writeFileSync('data/villains.csv', villainstring, 'utf8');
 
