@@ -24,19 +24,21 @@
      </tr>
 
       <%for(var i=0;i< user["player"].length;i++){%>
-        <%if(user["player"][i].Games_Played>0){%>
+    <!--    <%if(user["player"][i].total_games>0){%>
+    -->
           <tr>
           <td><span class="player_name_span"><%user["player"][i].Name%> </span> </td>
-          <td> <%user["player"][i].Name%></td>
-          <td> <%user["player"][i].Games_Played%></td>
-          <td> <%user["player"][i].Games_Won%></td>
-          <td> <%user["player"][i].Games_Lost%> </td>
-          <td> <%user["player"][i].Games_Tied%> </td>
-          <td> <%Math.round((user["player"][i].Games_Won)/(user["player"][i].Games_Played))%> </td>
-          <td> <%Math.round((user["player"][i].Rock_Played)/(user["player"][i].Games_Played))%> </td>
-          <td> <%Math.round((user["player"][i].Paper_Played)/(user["player"][i].Games_Played))%> </td>
-          <td> <%Math.round((user["player"][i].Scissors_Played)/(user["player"][i].Games_Played))%> </td>
+          <td> <%=user["player"][i].Name%></td>
+          <td> <%=user["player"][i].total_games%></td>
+          <td> <%=user["player"][i].wins%></td>
+          <td> <%=user["player"][i].losses%> </td>
+          <td> <%=user["player"][i].ties%> </td>
+          <td> <%=Math.round(((user["player"][i].wins)/(user["player"][i].total_games))*100) +"%"%> </td>
+          <td> <%=Math.round(((user["player"][i].rock)/(user["player"][i].total_games))*100) +"%"%> </td>
+          <td> <%Math.round(((user["player"][i].paper)/(user["player"][i].total_games))*100) +"%"%> </td>
+          <td> <%=Math.round(((user["player"][i].scissors)/(user["player"][i].total_games))*100) +"%"%> </td>
           </tr>
+      
           <% } else{ %>
             <tr>
                 <td><span class="player_name_span"><%user["player"][i].Name%> </span> </td>
@@ -50,6 +52,7 @@
                 <td> 0 </td>
           </tr>
           <% } %>
+
           <% } %>
     </table>
 
@@ -68,18 +71,19 @@
      </tr>
 
       <%for (var i=0;i< user["villain"].length;i++){%>
-        <%if(user["villain"][i].Games_Played>0){%>
+       <%if(user["villain"][i].total_games>0){%>
           <tr>
           <td><span class="player_name_span"><%user["villain"][i].Name%> </span> </td>
-          <td> <%user["villain"][i].Games_Played%></td>
-          <td> <%user["villain"][i].Games_Won%></td>
-          <td> <%user["villain"][i].Games_Lost%></td>
-          <td> <%user["villain"][i].Games_Tied%> </td>
-          <td> <%Math.round((user["villain"][i].Games_Won)/(user["villain"][i].Games_Played))%> </td>
-          <td> <%Math.round((user["villain"][i].Rock_Played)/(user["villain"][i].Games_Played))%> </td>
-          <td> <%Math.round((user["villain"][i].Paper_Played)/(user["villain"][i].Games_Played))%> </td>
-          <td> <%Math.round((user["villain"][i].Scissors_Played)/(user["villain"][i].Games_Played))%> </td>
+          <td> <%=user["villain"][i].total_games%></td>
+          <td> <%=user["villain"][i].wins%></td>
+          <td> <%=user["villain"][i].losses%></td>
+          <td> <%=user["villain"][i].ties%> </td>
+          <td> <%=Math.round(((user["villain"][i].wins)/(user["villain"][i].total_games))*100) +"%"%> </td>
+          <td> <%=Math.round(((user["villain"][i].rock)/(user["villain"][i].total_games))*100) +"%"%> </td>
+          <td> <%=Math.round(((user["villain"][i].paper)/(user["villain"][i].total_games))*100) +"%"%> </td>
+          <td> <%=Math.round(((user["villain"][i].scissors)/(user["villain"][i].total_games))*100) +"%"%> </td>
           </tr>
+
           <% } else{ %>
             <tr>
                 <td><span class="player_name_span"><%user["villain"][i].Name%> </span> </td>
@@ -93,6 +97,7 @@
                 <td> 0 </td>
           </tr>
           <% } %>
+
           <% } %>
     </table>
 

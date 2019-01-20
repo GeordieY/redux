@@ -35,7 +35,7 @@ app.get('/login', function(request, response){
   password = user_data.password;
 
 //console.log("Name" + user_data.name);
-//console.log("Password" + user_data.password);
+//console.log("pswrd" + user_data.password);
 //adding a user at login: now just automatically
 //var data = [user_data.name, user_data.password];
 //var datastorage = [];
@@ -321,15 +321,15 @@ app.get('/stats', function(request, response){
     var userdata = rows[i].trim().split(",");
     console.log("Important" + userdata);
     var user = {};
-    user["Name"] = userdata[0];
-    user["Games_Played"] = parseInt(userdata[1]);
-    user["Games_Won"] = parseInt(userdata[2]);
-    user["Games_Lost"] = parseInt(userdata[3]);
-    user["Games_Tied"] = parseInt(userdata[4]);
-    user["Paper_Played"] = parseInt(userdata[5]);
-    user["Scissors_Played"] = parseInt(userdata[6]);
-    user["Rock_Played"] = parseInt(userdata[7]);
-    user["Password"] = userdata[8];
+    user["name"] = userdata[0];
+    user["total_games"] = parseInt(userdata[1]);
+    user["wins"] = parseInt(userdata[2]);
+    user["losses"] = parseInt(userdata[3]);
+    user["ties"] = parseInt(userdata[4]);
+    user["paper"] = parseInt(userdata[5]);
+    user["scissors"] = parseInt(userdata[6]);
+    user["rock"] = parseInt(userdata[7]);
+    user["pswrd"] = userdata[8];
     //console.log(user);
     user_data.push(user);
     //console.log("Data" + user_data)
@@ -339,16 +339,16 @@ app.get('/stats', function(request, response){
     var villaindata = rows2[i].trim().split(",");
     var villain= {};
     //console.log("important" + villaindata);
-    villain["Name"] = villaindata[0];
+    villain["name"] = villaindata[0];
     //console.log("Check" + villain["Name"] + typeof(villain["Name"]));
-    villain["Games_Played"] = parseInt(villaindata[1]);
-    //console.log(villain["Games_Played"] + typeof(villain["Games_Played"]));
-    villain["Games_Won"] = parseInt(villaindata[2]);
-    villain["Games_Lost"] = parseInt(villaindata[3]);
-    villain["Games_Tied"] = parseInt(villaindata[4]);
-    villain["Paper_Played"] = parseInt(villaindata[5]);
-    villain["Scissors_Played"] = parseInt(villaindata[6]);
-    villain["Rock_Played"] = parseInt(villaindata[7]);
+    villain["total_games"] = parseInt(villaindata[1]);
+    //console.log(villain["total_games"] + typeof(villain["total_games"]));
+    villain["wins"] = parseInt(villaindata[2]);
+    villain["losses"] = parseInt(villaindata[3]);
+    villain["ties"] = parseInt(villaindata[4]);
+    villain["paper"] = parseInt(villaindata[5]);
+    villain["scissors"] = parseInt(villaindata[6]);
+    villain["rock"] = parseInt(villaindata[7]);
     villain_data.push(villain);
   //  console.log(villain);
   //  console.log("Data2" + villain_data);
