@@ -40,6 +40,7 @@ app.get('/login', function(request, response){
 //adding a user at login: now just automatically
 //var data = [user_data.name, user_data.password];
 //var datastorage = [];
+var c=false;
 
 var users_file = fs.readFileSync('data/users.csv', 'utf8');
 var rows = users_file.split('\n');
@@ -52,11 +53,12 @@ for(var i=0; i<rows.length; i++){
 for(var i=0; i<user_info.length; i++){
   if(String(user_info[i][0]) == String(user_data.name)){
     if(String(user_info[i][8]) == String(user_data.password)){
+      console.log(users_file);
+      console.log("Login to previous account successful");
+      c=true;
       response.status(200);
       response.setHeader('Content-Type', 'text/html');
       response.render('game', {user:user_data});
-      console.log(users_file);
-      console.log("Login to previous account successful");
     }
     //if username is not the same
     else{
@@ -64,11 +66,13 @@ for(var i=0; i<user_info.length; i++){
       var userf_data = {
         failure: 4
       }
+      c=true;
       console.log("failure");
       console.log("failure");
       response.status(200);
       response.setHeader('Content-Type', 'text/html');
       response.render('index', {user:userf_data});
+
       //load response
     }
   }
@@ -80,7 +84,9 @@ for(var i=0; i<user_info.length; i++){
       userstring += (c+k);
       continue;
     }
+
     else{
+      if(c=="false"){
       var nameadd = [user_data.name, 0, 0, 0, 0, 0, 0, 0, user_data.password];
       var file = nameadd.join(",");
       file += "\n";
@@ -90,28 +96,9 @@ for(var i=0; i<user_info.length; i++){
       response.status(200);
       response.setHeader('Content-Type', 'text/html');
       response.render('game', {user:user_data});
-
+      }
     }
-/*
-    else{
-        var c = (user_info[i].toString());
-        var k = "\n";
-        userstring += (c+k);
-        var nameadd = [user_data.name, 0, 0, 0, 0, 0, 0, 0, user_data.password];
-        var file = nameadd.join(",");
-        file += "\n";
-        userstring += file;
-        fs.writeFileSync('data/users.csv', userstring, 'utf8');
-        console.log("New account created");
-    response.status(200);
-    response.setHeader('Content-Type', 'text/html');
-    response.render('game', {user:user_data});
-    }
-    */
   }
-
-//}
-
 }
 });
 
