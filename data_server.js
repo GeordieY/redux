@@ -72,6 +72,7 @@ var users_file = fs.readFileSync('data/users.csv', 'utf8');
 var villains_file = fs.readFileSync('data/villains.csv', 'utf8');
 var rows = users_file.split('\n');
 var rows2= villains_file.split('\n');
+//var c = true;
 
 for(var i=0; i<rows.length; i++){
   user_info.push(rows[i].trim().split(","));
@@ -91,8 +92,10 @@ for(var i=0;i<villain_info.length;i++){
     break;
   }
 }
-    changeIndexValue(user_info[index][1]);
-    changeIndexValue(villain_info[index2][1]);
+
+
+    user_info[index][1] = changeIndexValue(user_info[index][1]);
+    villain_info[index2][1] = changeIndexValue(villain_info[index2][1]);
     //console.log("game user played" + user_info[index][1]);
     if(compare==-1 && String(villain_data.weapon)==="Paper"){
       user_info[index][3] = changeIndexValue(user_info[index][3]);
@@ -367,6 +370,7 @@ app.get('/about', function(request, response){
 
 function changeIndexValue(element){
   element = (parseInt(element) + 1);
+  console.log("Called");
   return element;
 }
 
