@@ -255,11 +255,6 @@ for(var i=0; i<user_info.length-1;i++){
       }
     }
   }
-<<<<<<< HEAD
-=======
-
->>>>>>> 2b5a041c085b8cead8b15689f77548f81e5e0d94
-}
 
 for(var i=0; i<villain_info.length-1;i++){
   for(var k=0;k<villain_info[i].length;k++){
