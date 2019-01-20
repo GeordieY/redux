@@ -17,10 +17,10 @@ var password;
 var villainsthrowsarray = ["The Magician", "Rock"];
 
 app.get('/', function(request, response){
-  var user_data = {};
-  var error = {
-    error: 'blank'
-  }
+  var user_data = {
+    failure:0
+  };
+
   response.status(200);
   response.setHeader('Content-Type', 'text/html')
   response.render('index', {user:user_data});
@@ -33,12 +33,83 @@ app.get('/login', function(request, response){
   };
   username = user_data.name;
   password = user_data.password;
+  //login = request.query.user_login;
 
 //console.log("Name" + user_data.name);
 //console.log("pswrd" + user_data.password);
 //adding a user at login: now just automatically
 //var data = [user_data.name, user_data.password];
 //var datastorage = [];
+
+var users_file = fs.readFileSync('data/users.csv', 'utf8');
+var rows = users_file.split('\n');
+for(var i=0; i<rows.length; i++){
+  user_info.push(rows[i].trim().split(","));
+}
+
+for(var i=0; i<user_info.length; i++){
+
+if(i<user_info.length-1){
+  //if this isn't the last user, check name and password
+  if(String(user_info[i][0]) == String(user_data.name)){
+    if(String(user_info[i][8]) == String(user_data.password)){
+      response.status(200);
+      response.setHeader('Content-Type', 'text/html');
+      response.render('game', {user:user_data});
+    //if they are both equal render game
+    }
+    else{
+      //if password doesn't match user don't use it
+      var userf_data = {
+        failure: 4
+      }
+      response.status(200);
+      response.setHeader('Content-Type', 'text/html');
+      response.render('index', {user:userf_data});
+    }
+  }
+  else{
+    //if the name doesn't exist, then continue
+    continue;
+  }
+}
+
+else{
+  if(String(user_info[i][0]!= String(user_data.name))){
+    //if user doesn't exist add them
+    var nameadd = [user_data.name, 0, 0, 0, 0, 0, 0, 0, user_data.password];
+    var file = nameadd.join(",");
+    file += "\n";
+    fs.writeFileSync('data/users.csv', file, 'utf8');
+    response.status(200);
+    response.setHeader('Content-Type', 'text/html');
+    response.render('game', {user:user_data});
+  }
+  else{
+    if(String(user_info[i][8]) == String(user_data.password)){
+      response.status(200);
+      response.setHeader('Content-Type', 'text/html');
+      response.render('game', {user:user_data});
+    //if they are both equal render game
+    }
+    else{
+      //if password doesn't match user don't use it
+      var userf_data = {
+        failure: 4
+      }
+      response.status(200);
+      response.setHeader('Content-Type', 'text/html');
+      response.render('index', {user:userf_data});
+    }
+  }
+}
+
+}
+
+
+
+
+/*
 var nameadd = [user_data.name, 0, 0, 0, 0, 0, 0, 0, user_data.password];
 var file = nameadd.join(",");
 file += "\n";
@@ -46,6 +117,10 @@ fs.writeFileSync('data/users.csv', file, 'utf8');
 response.status(200);
 response.setHeader('Content-Type', 'text/html');
 response.render('game', {user:user_data});
+*/
+
+
+
 });
 
 app.get('/:user/results', function(request, response){
