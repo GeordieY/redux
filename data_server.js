@@ -172,11 +172,34 @@ for(var i=0;i<villain_info.length;i++){
   }
 var userstring = "";
 var villainstring = "";
-// <<<<<<< HEAD
+
+for(var i=0;i<user_info.length-1;i++){
+  var c = (user_info[i].toString());
+  var k = "\n";
+  userstring += (c+k);
+  //console.log("usefin" + userstring + typeof(userstring));
+  //console.log("string change" + user_info[i].toString());
+  //console.log("userinfo" + typeof(user_info[i]));
+  //for(var k=0;k<user_info[i].length;k++){
+    //console.log("userinfo  " + user_info[i][k] + "type " + typeof(user_info[i][k]));
+
+  //}
+  //or(var k=0;k<user_info[i] + )
+}
+
+for(var i=0; i<villain_info.length-1;i++){
+  var c = (villain_info[i].toString());
+  var k = "\n";
+  villainstring += (c+k);
+  //console.log("vilfin" + villainstring + typeof(villainstring));
+  //  console.log("string change" + villain_info[i].toString());
+//  for(var k=0;k<villain_info[i].length;k++){
+  //  console.log("vilinfo  " + villain_info[i][k] + "type " + typeof(villain_info[i][k]));
+//  }
+//  console.log("vilinfo" + typeof(villain_info[i]));
+}
 
 /*
-=======
->>>>>>> 2b5a041c085b8cead8b15689f77548f81e5e0d94
 for(var i=0; i<user_info.length-1;i++){
   //console.log("Info" + user_info[i] + "Type" + typeof(user_info[i]));
   for(var k=0; k<user_info[i].length; k++){
@@ -250,9 +273,10 @@ for(var i=0; i<villain_info.length-1;i++){
     }
   }
 }
+*/
 var users_file = fs.writeFileSync('data/users.csv', userstring, 'utf8');
 var villains_file = fs.writeFileSync('data/villains.csv', villainstring, 'utf8');
-*/
+
     response.status(200);
     response.setHeader('Content-Type', 'text/html');
     response.render('results',{user:user_data, villain:villain_data, winner:winner_data});
