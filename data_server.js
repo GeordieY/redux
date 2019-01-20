@@ -311,107 +311,52 @@ app.get('/rules', function(request, response){
 
 app.get('/stats', function(request, response){
   var users_file = fs.readFileSync('data/users.csv','utf8');
-  //console.log("File" + users_file);
-  //parse the csv
-  var rows = users_file.trim().split("\n");
-  //console.log(rows);
-  var user_data=[];
-  var data = [];
-  for(var i = 0; i<rows.length; i++){
-    var user_info = rows[i].trim().split(",");
-  //  console.log("Info" + user_info);
-    /*
-      for(var k=0;k<user_info.length;k++){
-      //  console.log(user_info[k]);
-      }
-      */
-    //console.log("User Info I " + user_info[i]);
-  //  console.log("User Info I" + user_info[i][user_info[i].length]);
-    var user = [];
-    user["Name"] = user_info[0];
-  //  console.log(user["Name"]);
-  //  console.log("Name" + user["Name"]);
-    //console.log(user["Name"]);
-    user["Games_Played"] = parseInt(user_info[1]);
-  //  console.log("Games_Played" + user["Games_Played"]);
-    user["Games_Won"] = parseInt(user_info[2]);
-//    console.log("Games_Won" + user["Games_Won"]);
-    user["Games_Lost"] = parseInt(user_info[3]);
-  //  console.log("Games_Lost" + user["Games_Lost"]);
-    user["Games_Tied"] = parseInt(user_info[4]);
-//    console.log("Games_Tied"+ user["Games_Tied"]);
-    user["Paper_Played"] = parseInt(user_info[5]);
-    //console.log("Paper_Played"+ user["Paper_Played"]);
-    user["Scissors_Played"] = parseInt(user_info[6]);
-  //  console.log("Scissors_Played"+ user["Scissors_Played"]);
-    user["Rock_Played"] = parseInt(user_info[7]);
-    //console.log("Rock_Played" + (user["Rock_Played"]);
-    user["Password"] = (user_info[8])
-  //console.log("Password" + user["Password"]);
+  var villains_file = fs.readFileSync('data/villains.csv', 'utf8');
+  var rows = users_file.split('\n');
+  var rows2 = villains_file.split('\n');
+
+  var user_data = [];
+  var villain_data = [];
+  for(var i=0;i<rows.length;i++){
+    var userdata = rows[i].trim().split(",");
+    console.log("Important" + userdata);
+    var user = {};
+    user["Name"] = userdata[0];
+    user["Games_Played"] = parseInt(userdata[1]);
+    user["Games_Won"] = parseInt(userdata[2]);
+    user["Games_Lost"] = parseInt(userdata[3]);
+    user["Games_Tied"] = parseInt(userdata[4]);
+    user["Paper_Played"] = parseInt(userdata[5]);
+    user["Scissors_Played"] = parseInt(userdata[6]);
+    user["Rock_Played"] = parseInt(userdata[7]);
+    user["Password"] = userdata[8];
+    //console.log(user);
     user_data.push(user);
+    //console.log("Data" + user_data)
   }
 
-
-  //console.log(user_data);
-  var villains_file = fs.readFileSync('data/villains.csv','utf8');
-  //console.log("Vil file" + villains_file);
-  var rows2 = villains_file.trim().split("\n");
-  //console.log("Vil rows" + rows2);
-  var villains_data=[];
-  for(var i = 0; i<rows2.length; i++){
-    var villain_info = rows2[i].trim().split(",");
-    //console.log("vil info" + villain_info);
-      for(var k=0; k<villain_info.length;k++){
-        console.log("vilinfok" + villain_info[k]);
-      }
-    //console.log("Check" + villain_info[i][0]);
-    var villain = [];
-    //console.log("1st step" + villain);
-    villain["Name"] = villain_info[0];
-    console.log("Name" + villain["Name"]);
-    villain["Games_Played"] = parseInt(villain_info[1]);
-    console.log("Games_Played" + villain["Games_Played"]);
-    villain["Games_Won"] = parseInt(villain_info[2]);
-      console.log("Games_Won" + villain["Games_Won"]);
-    villain["Games_Lost"] = parseInt(villain_info[3]);
-    console.log("Games_Lost" + villain["Games_Lost"]);
-    villain["Games_Tied"] = parseInt(villain_info[4]);
-    console.log("Games_Tied"+ villain["Games_Tied"]);
-    villain["Paper_Played"] = parseInt(villain_info[5]);
-    console.log("Paper_Played"+ villain["Paper_Played"]);
-    villain["Scissors_Played"] = parseInt(villain_info[6]);
-    console.log("Scissors_Played"+ villain["Scissors_Played"]);
-    villain["Rock_Played"] = parseInt(villain_info[7]);
-    console.log("Rock_Played"+ villain["Rock_Played"]);
-  //  console.log("1st step" + villain);
-    villains_data.push(villain);
-    console.log("Arraycheck" + villains_data[i]);
-  }
-/*
-var temp;
-var temp2;
-
-  for(var i=1;i<villains_data.length;i++){
-    if(villains_data[i]["Games_Won"] > villains_data[i-1]["Games_Won"]){
-        temp = villains_data[i];
-        villains_data[i] = villains_data[i-1];
-        villains_data[i-1] = temp;
-      }
+  for(var i=1;i<rows2.length-1;i++){
+    var villaindata = rows2[i].trim().split(",");
+    var villain= {};
+    //console.log("important" + villaindata);
+    villain["Name"] = villaindata[0];
+    //console.log("Check" + villain["Name"] + typeof(villain["Name"]));
+    villain["Games_Played"] = parseInt(villaindata[1]);
+    //console.log(villain["Games_Played"] + typeof(villain["Games_Played"]));
+    villain["Games_Won"] = parseInt(villaindata[2]);
+    villain["Games_Lost"] = parseInt(villaindata[3]);
+    villain["Games_Tied"] = parseInt(villaindata[4]);
+    villain["Paper_Played"] = parseInt(villaindata[5]);
+    villain["Scissors_Played"] = parseInt(villaindata[6]);
+    villain["Rock_Played"] = parseInt(villaindata[7]);
+    villain_data.push(villain);
+  //  console.log(villain);
+  //  console.log("Data2" + villain_data);
   }
 
-  for(var i=1;i<user_data.length;i++){
-    if(user_data[i]["Games_Won"] > user_data[i-1]["Games_Won"]){
-      temp2 = user_data[i];
-      user_data[i] = user_data[i-1];
-      user_data[i-1] = temp2;
-    }
-}
-*/
-console.log("user data final" + user_data);
-console.log("villain data final" + villains_data);
+  var data = {};
   data["player"] = user_data;
-  data["villain"] = villains_data;
-  //console.log(villains_data);
+  data["villain"] = villain_data;
   response.status(200);
   response.setHeader('Content-Type', 'text/html');
   response.render('stats', {user: data});
