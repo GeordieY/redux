@@ -115,6 +115,9 @@ var villain_data = {
 var vilwep = villain_data.weapon;
 var userwep = user_data.weapon;
 var villname = villain_data.name;
+console.log("Vilwep" + vilwep);
+console.log("Userwep" + userwep);
+console.log("Villanme" + villname);
 villain_data.weapon = villainthrow(villname,userwep,vilwep);
 var compare = vilwep.localeCompare(userwep);
 var index;
@@ -439,12 +442,11 @@ function villainthrow(villain,userchoice,villainschoice){
 
       }
       if(userchoice == "Paper"){
-        choice = "Rock";
+        choice = "Scissors";
 
       }
       else{
-        choice = "Scissors";
-
+        choice = "Rock";
       }
     }
   //Comic Hans: Always Loses
@@ -454,11 +456,11 @@ function villainthrow(villain,userchoice,villainschoice){
 
       }
       if(userchoice == "Paper"){
-        choice = "Paper";
+        choice = "Rock";
 
       }
       else{
-        choice = "Rock";
+        choice = "Paper";
 
       }
     }
