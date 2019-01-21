@@ -17,14 +17,15 @@
    <div id="results">
      <h2> Results: Who Won the Game? </h2>
      <br><br>
-        <h3> <%=user.name%> chose <%=user.weapon%> </h3>
+        <%=user.name%> chose <%=user.weapon%>
     <br><br>
-        <h4> <%=villain.name%> chose <%=villain.weapon%> </h4>
+        <%=villain.name%> chose <%=villain.weapon%>
     <br><br>
-    <div id="resultswinner" name="resultswinner">
-        <h5> The winner is <%=winner.winner%> </h5>
-      </div>
-    <br><br>
+        The winner is <%=winner.winner%>
+    <object id = "villain_image" type="image/svg+xml" data="../images/<%=villain.name.toLowerCase()%>_<%=villain.weapon.toLowerCase()%>.svg" width = "150vw" height = "150vh"></object>
+    <object id = "user_image" type="image/svg+xml" data="../images/user_<%=user.weapon.toLowerCase()%>.svg" width = "150vw" height = "150vh"></object>
+    <!--<img id="player_image" src="../images/player_<%=user.weapon%>.png" height=135; width=135;>-->
+
     </div>
   <form action="/playagain" method="Get">
      <input type="submit" name="Play Again" value="Play Again!">

@@ -149,7 +149,7 @@ console.log("Scissors vs Rock" + d.localeCompare(c));
 
 var compare = vilwep.localeCompare(userwep);
 
-//The Boss has been hard coded into always win
+//Some villains had to be hardcoded in 
   if(villname == "The Boss"){
     if(userwep == "Paper"){
     compare = 1;
