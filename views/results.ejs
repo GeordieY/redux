@@ -22,9 +22,10 @@
         <%=villain.name%> chose <%=villain.weapon%>
     <br><br>
         The winner is <%=winner.winner%>
+    <br><br>
     <object id = "villain_image" type="image/svg+xml" data="../images/<%=villain.name.toLowerCase()%>_<%=villain.weapon.toLowerCase()%>.svg" width = "150vw" height = "150vh"></object>
-    <object id = "user_image" type="image/svg+xml" data="../images/user_<%=user.weapon.toLowerCase()%>.svg" width = "150vw" height = "150vh"></object>
-    <!--<img id="player_image" src="../images/player_<%=user.weapon%>.png" height=135; width=135;>-->
+    <!--<object id = "user_image" type="image/svg+xml" data="../images/user_<%=user.weapon.toLowerCase()%>.svg" width = "150vw" height = "150vh"></object>-->
+    <img id="player_image" src="../images/user_<%=user.weapon.toLowerCase()%>.png" height=135; width=135;>
 
     </div>
   <form action="/playagain" method="Get">

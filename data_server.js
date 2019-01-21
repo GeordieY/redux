@@ -1,5 +1,6 @@
 var express = require('express');
 var fs = require('fs');
+var assert = require('assert');
 var favicon = require('serve-favicon');
 var app = express();
 app.use(express.static('public'));
@@ -20,7 +21,7 @@ app.get('/', function(request, response){
   var user_data = {
     failure:0
   };
-  console.log("Has reached");
+//  console.log("Has reached");
   response.status(200);
   response.setHeader('Content-Type', 'text/html')
   response.render('index', {user:user_data});
@@ -85,18 +86,18 @@ for(var i=0; i<user_info.length;i++){
 if(c==true){
   for(var i=0; i<user_info.length-1; i++){
     var c = (user_info[i].toString()) + "\n";
-    console.log("C" + c);
+    //console.log("C" + c);
     userstring += c
-    console.log("userstring" + userstring);
+    //console.log("userstring" + userstring);
   }
 
   var nameadd = [user_data.name, 0, 0, 0, 0, 0, 0, 0, user_data.password];
   var file = nameadd.join(",");
   file += "\n";
   userstring += file;
-  console.log("finalwrite" + userstring);
+  //console.log("finalwrite" + userstring);
   fs.writeFileSync('data/users.csv', userstring, 'utf8');
-  console.log("New account created");
+  //console.log("New account created");
   response.status(200);
   response.setHeader('Content-Type', 'text/html');
   response.render('game', {user:user_data});
@@ -148,8 +149,26 @@ console.log("Scissors vs Rock" + d.localeCompare(c));
 
 
 var compare = vilwep.localeCompare(userwep);
+if(vilwep =="Rock" && userwep=="Paper"){
+  compare = 1
+}
+else if(vilwep =="Rock" && userwep=="Scissors"){
+  compare = -1;
+}
 
-//Some villains had to be hardcoded in 
+else if(vilwep =="Paper" && (userwep=="Scissors" || userwep=="Rock")){
+  compare = -1;
+}
+else if(vilwep == "Scissors" && (userwep =="Paper" || userwep == "Rock")){
+  compare = 1;
+}
+else{
+  compare = 0;
+}
+
+
+
+//Some villains with throw strategies had to be hardcoded in
   if(villname == "The Boss"){
     if(userwep == "Paper"){
     compare = 1;
@@ -681,7 +700,10 @@ function villainthrow(villain,userchoice,villainschoice){
 //Never Throws the Same Thing Twice
     else if(villain == "The Magician"){
       for(var i=villainsthrowsarray.length-1; i>=0; i--){
+        console.log("Throw array" + villainsthrowarray[i]);
+        console.log("Throw array name" + villainsthrowarray[i][0]);
         if(villainsthrowsarray[i][0] == villain){
+          //console.log(villains)
           index == i;
           break;
         }
@@ -704,14 +726,13 @@ function villainthrow(villain,userchoice,villainschoice){
       }
 
     }
-    else{
-      choice = "Scissors";
-    }
+
 
   if(choice!=""){
     villainsthrowsarray.push([villain,choice]);
+    console.log("Throw array" + villainsthrowsarray)
   }
-    console.log("final return vil" + choice);
+    //console.log("final return vil" + choice);
     return choice;
 }
 
