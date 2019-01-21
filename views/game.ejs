@@ -81,8 +81,18 @@
         <br> <br>
           <input type="submit" name="Play Game!" value="Play Game!">
         </form>
+        <img id="villain_img" width="200" height="200" src="bones_waiting.svg">
     </div>
 <% include global/footer %>
   <script src="scripts/scripts.js"></script>
+  <script>
+    $("#villains").change(function(){
+      var selected2 = $("#villains").val());
+      console.log(selected2);
+      var c = selected2.toLowerCase();
+      console.log(c);
+      $("#villain_img").attr("src", "images/" + c +"_waiting.svg");
+    });
+    </script>
  </body>
 </html>
