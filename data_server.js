@@ -53,10 +53,7 @@ for(var i=0; i<rows.length; i++){
 }
 
 for(var i=0; i<user_info.length; i++){
-<<<<<<< HEAD
-  console.log("Reached");
-=======
->>>>>>> adffe1905c0220f0d3d14cc53aea4a91239f0b11
+
   if(String(user_info[i][0]) == String(user_data.name)){
     if(String(user_info[i][8]) == String(user_data.password)){
       console.log(users_file);
@@ -94,12 +91,7 @@ for(var i=0; i<user_info.length; i++){
     }
 
     else{
-<<<<<<< HEAD
-      if(c==false){
-      console.log("Reached");
-=======
       if(c=="false"){
->>>>>>> adffe1905c0220f0d3d14cc53aea4a91239f0b11
       var nameadd = [user_data.name, 0, 0, 0, 0, 0, 0, 0, user_data.password];
       var file = nameadd.join(",");
       file += "\n";
@@ -113,11 +105,7 @@ for(var i=0; i<user_info.length; i++){
     }
   }
 }
-<<<<<<< HEAD
 
-
-=======
->>>>>>> adffe1905c0220f0d3d14cc53aea4a91239f0b11
 });
 
 app.get('/:user/results', function(request, response){
