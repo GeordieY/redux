@@ -27,7 +27,7 @@ app.get('/', function(request, response){
 });
 
 app.get('/login', function(request, response){
-  console.log("Has reached login");
+//  console.log("Has reached login");
   var user_data={
       name: request.query.user_name,
       password: request.query.user_password
@@ -47,65 +47,60 @@ var users_file = fs.readFileSync('data/users.csv', 'utf8');
 var rows = users_file.split('\n');
 var user_info = [];
 var userstring = "";
+/*
 for(var i=0; i<rows.length; i++){
   console.log("done");
   user_info.push(rows[i].trim().split(","));
 }
+*/
 
-for(var i=0; i<user_info.length; i++){
+for(var i=0; i<rows.length;i++){
+  user_info.push(rows[i].trim().split(",")); //this generates the double array
+}
 
-  if(String(user_info[i][0]) == String(user_data.name)){
-    if(String(user_info[i][8]) == String(user_data.password)){
-      console.log(users_file);
-      console.log("Login to previous account successful");
-      c=true;
-      response.status(200);
-      response.setHeader('Content-Type', 'text/html');
-      response.render('game', {user:user_data});
-    }
-    //if username is not the same
-    else{
-      console.log("Reached");
-      //if password doesn't match user don't use it
-      var userf_data = {
-        failure: 4
+for(var i=0; i<user_info.length;i++){
+  if(String(user_info[i][0]) == username && String(user_info[i][8]) == password){
+        response.status(200);
+        response.setHeader('Content-Type','text/html');
+        response.render('game', {user:user_data});
       }
-      c=true;
-      console.log("failure");
-      console.log("failure");
+  else if(String(user_info[i][0]) == username && String(user_info[i][8])!= password){
+    var userf_data = {
+      failure: 4
+    };
       response.status(200);
       response.setHeader('Content-Type', 'text/html');
       response.render('index', {user:userf_data});
-
-      //load response
     }
-  }
-
-  else if(String(user_info[i][0]!= String(user_data.name))){
-    console.log("Reached");
-    if(i!=user_info.length-1){
-      var c = user_info[i].toString();
-      var k = "\n";
-      userstring += (c+k);
-      continue;
-    }
-
-    else{
-      if(c=="false"){
-      var nameadd = [user_data.name, 0, 0, 0, 0, 0, 0, 0, user_data.password];
-      var file = nameadd.join(",");
-      file += "\n";
-      userstring += file;
-      fs.writeFileSync('data/users.csv', userstring, 'utf8');
-      console.log("New account created");
-      response.status(200);
-      response.setHeader('Content-Type', 'text/html');
-      response.render('game', {user:user_data});
+  else if(String(user_info[i][0])!=username){
+      if(i<user_info.length-1){
+        continue;
+      }
+      else{
+        c = true;
+        break;
       }
     }
   }
-}
+if(c==true){
+  for(var i=0; i<user_info.length-1; i++){
+    var c = (user_info[i].toString()) + "\n";
+    console.log("C" + c);
+    userstring += c
+    console.log("userstring" + userstring);
+  }
 
+  var nameadd = [user_data.name, 0, 0, 0, 0, 0, 0, 0, user_data.password];
+  var file = nameadd.join(",");
+  file += "\n";
+  userstring += file;
+  console.log("finalwrite" + userstring);
+  fs.writeFileSync('data/users.csv', userstring, 'utf8');
+  console.log("New account created");
+  response.status(200);
+  response.setHeader('Content-Type', 'text/html');
+  response.render('game', {user:user_data});
+}
 });
 
 app.get('/:user/results', function(request, response){
@@ -121,9 +116,9 @@ var villain_data = {
 var vilwep = villain_data.weapon;
 var userwep = user_data.weapon;
 var villname = villain_data.name;
-console.log("Vilwep" + vilwep);
-console.log("Userwep" + userwep);
-console.log("Villanme" + villname);
+//console.log("Vilwep" + vilwep);
+//console.log("Userwep" + userwep);
+//console.log("Villanme" + villname);
 villain_data.weapon = villainthrow(villname,userwep,vilwep);
 var compare = vilwep.localeCompare(userwep);
 var index;
@@ -244,12 +239,14 @@ for(var i=0;i<user_info.length-1;i++){
   var k = "\n";
   userstring += (c+k);
 }
+console.log("results" + userstring);
 
 for(var i=0; i<villain_info.length-1;i++){
   var c = (villain_info[i].toString());
   var k = "\n";
   villainstring += (c+k);
 }
+//console.log("results" + villainstring);
 var users_file = fs.writeFileSync('data/users.csv', userstring, 'utf8');
 var villains_file = fs.writeFileSync('data/villains.csv', villainstring, 'utf8');
 
@@ -287,6 +284,7 @@ app.get('/rules', function(request, response){
 
 app.get('/stats', function(request, response){
   var users_file = fs.readFileSync('data/users.csv','utf8');
+  console.log("userfilestat" + users_file);
   var villains_file = fs.readFileSync('data/villains.csv', 'utf8');
   var rows = users_file.split('\n');
   var rows2 = villains_file.split('\n');
