@@ -104,6 +104,7 @@ if(c==true){
 });
 
 app.get('/:user/results', function(request, response){
+  
 var user_data = {
   name: request.params.user,
   weapon: request.query.weapons
@@ -253,6 +254,7 @@ var villains_file = fs.writeFileSync('data/villains.csv', villainstring, 'utf8')
     response.status(200);
     response.setHeader('Content-Type', 'text/html');
     response.render('results',{user:user_data, villain:villain_data, winner:winner_data});
+
 });
 
 app.get('/playagain',function(request,response){

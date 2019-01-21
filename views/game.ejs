@@ -48,15 +48,17 @@
 
 <body>
  <%include global/header %>
+ <div id="feedback">
 
-  <div id="feedback">
-  </div>
+   </div>
+
   <div id="throw_choice">
       <h2>Play the Game </h2>
+
       <h3>Welcome <%=user.name%> it's your turn to bust a move!</h3>
 
       <form action="<%=user.name%>/results" method="get">
-        <input list="villains" name="villains">
+        <input list="villains" id="villains2" name="villains">
           <datalist id="villains">
             <option value ="Bones">
             <option value ="Gato">
@@ -81,18 +83,30 @@
         <br> <br>
           <input type="submit" name="Play Game!" value="Play Game!">
         </form>
-        <img id="villain_img" width="200" height="200" src="bones_waiting.svg">
+        <img id="villain_img" width="200" height="200" src="images/bones_waiting.svg">
     </div>
 <% include global/footer %>
   <script src="scripts/scripts.js"></script>
   <script>
-    $("#villains").change(function(){
-      var selected2 = $("#villains").val());
+  /*
+  var k = $("#villains").val();
+  console.log("k" + k);
+  $("#villains").on('input', function() {
+    console.log("changed");
+    var s = $(this).val();
+    c = s.toLowerCase();
+    $("#villain_img").attr("src", "images/" + c +"_waiting.svg");
+  });
+
+
+    $("#villains2").change(function(){
+      var selected2 = $("#villains2").val());
       console.log(selected2);
       var c = selected2.toLowerCase();
       console.log(c);
       $("#villain_img").attr("src", "images/" + c +"_waiting.svg");
     });
+    /*
     </script>
  </body>
 </html>
