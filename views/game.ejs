@@ -83,9 +83,11 @@
         <br> <br>
           <input type="submit" name="Play Game!" value="Play Game!">
         </form>
-        <img id="villain_img" width="200" height="200" src="images/bones_waiting.svg">
+        <object id = "villain_image" type="image/svg+xml" data="../images/<%=villain.name.toLowerCase()%>_<%=waiting%>.svg" width = "150vw" height = "150vh"></object>
+        <!-- <img id="villain_img" width="200" height="200" src="images/bones_waiting.svg"> -->
     </div>
 <% include global/footer %>
+
   <script src="scripts/scripts.js"></script>
   <script>
   /*
