@@ -1,13 +1,13 @@
 Name, Games Played, Games Won, Games Lost, Games Tied, Paper Played, Scissors Played, Rock Played
-Bones,0, 0, 0,0, 0,0, 0
+Bones,1, 0, 0,1, 0,0,1
 Gato,0, 0, 0, 0, 0, 0, 0
 Manny, 0, 0, 0, 0, 0, 0, 0
-Mr.Modern,0,0, 0,0,0, 0, 0
+Mr.Modern,2,0, 0,1,0,1, 0
 Regal, 0, 0, 0, 0, 0, 0, 0
-The Boss,0, 0,0, 0, 0, 0,0
-Comic Hans, 0, 0, 0, 0, 0, 0, 0
+The Boss,2,2,0, 0,2, 0,0
+Comic Hans,2, 0,2, 0, 0,1,1
 Harry,0, 0, 0, 0, 0, 0, 0
-Mickey,0, 0, 0, 0, 0, 0, 0
+Mickey,1, 0, 0,1, 0,1, 0
 Pixie, 0, 0, 0, 0, 0, 0, 0
-Spock,0, 0, 0,0, 0,0, 0
+Spock,3,2,1,0,1,1,1
 The Magician, 0, 0, 0, 0, 0, 0, 0

@@ -1,3 +1,4 @@
+
 var express = require('express');
 var fs = require('fs');
 var assert = require('assert');
@@ -88,8 +89,8 @@ if(c==true){
     var c = (user_info[i].toString()) + "\n";
     //console.log("C" + c);
     userstring += c
-    //console.log("userstring" + userstring);
   }
+    //console.log("userstring" + userstring);
 
   var nameadd = [user_data.name, 0, 0, 0, 0, 0, 0, 0, user_data.password];
   var file = nameadd.join(",");
@@ -101,7 +102,9 @@ if(c==true){
   response.status(200);
   response.setHeader('Content-Type', 'text/html');
   response.render('game', {user:user_data});
-}
+
+
+  }
 });
 
 app.get('/:user/results', function(request, response){
@@ -121,7 +124,7 @@ var villname = villain_data.name;
 //console.log("Vilwep" + vilwep);
 //console.log("Userwep" + userwep);
 //console.log("Villanme" + villname);
-villain_data.weapon = villainthrow(villname,userwep,vilwep);
+villain_data.weapon = villainthrow(villname,userwep,vilwep)[0];
 
 console.log("Final weapon" + vilwep + typeof(vilwep));
 console.log("Userwep" + userwep + typeof(vilwep));
@@ -142,7 +145,7 @@ console.log("Paper vs Rock" + k.localeCompare(c));
 console.log("Scissors vs Paper" + d.localeCompare(k));
 console.log("Scissors vs Scissors" + d.localeCompare(d));
 console.log("Scissors vs Rock" + d.localeCompare(c));
-
+var winner;
 
 
 
@@ -235,6 +238,39 @@ else{
       compare = 1;
     }
   }
+  if(villname == "Gato"){
+    if(userwep =="Scissors" && villain_data.weapon == "Scissors" ){
+      compare = 0;
+      winner = "Tie";
+    }
+    if(userwep =="Paper" && villain_data.weapon == "Scissors" ){
+      compare = 1;
+      winner = "Gato";
+    }
+    if(userwep =="Paper" && villain_data.weapon == "Paper" ){
+      compare = 0;
+      winner = "Tie";
+    }
+    if(userwep = "Paper" && villain_data.weapon == "Rock"){
+      compare = 1;
+      winner = user_data.name;
+    }
+  }
+
+  if(villname == "Mr.Modern"){
+    if(userwep =="Rock" && villain_data.weapon == "Rock" ){
+      compare = 0;
+      winner = "Tie";
+    }
+    if(userwep =="Scissors" && villain_data.weapon == "Scissors" ){
+      compare = 0;
+      winner = "Tie";
+    }
+    if(userwep =="Paper" && villain_data.weapon == "Paper" ){
+      compare = 0;
+      winner = "Tie";
+    }
+  }
 
 
 
@@ -254,7 +290,7 @@ var index;
 var index2;
 var user_info = [];
 var villain_info = [];
-var winner;
+
 var users_file = fs.readFileSync('data/users.csv', 'utf8');
 var villains_file = fs.readFileSync('data/villains.csv', 'utf8');
 var rows = users_file.split('\n');
@@ -542,7 +578,228 @@ function changeIndexValue(element){
 }
 
 
+function villainthrow(villain,userchoice,villainschoice){
+  var user = userchoice;
+  var random = (10 * Math.random());
+  var index = [];
+  var compare;
 
+  if(villain == "Bones"){
+    choice = villainschoice;
+    compare = user.localeCompare(choice);
+    console.log("Bones choice" + choice + "userchoice" + user + "Compare" + compare);
+  }
+  else if(villain == "Manny"){
+    choice = "Paper";
+    if(user == "Paper"){
+      compare = 0;
+    }
+    else{
+      compare = -1;
+    }
+  }
+  else if(villain == "Gato"){
+    if(random>7){
+      choice = villainschoice;
+    }
+    else if(random<7 && random>5){
+      if(userchoice == "Rock"){
+        choice = "Scissors";
+      }
+      if(userchoice == "Paper"){
+        choice = "Rock";
+      }
+      else{
+        choice = "Paper";
+      }
+    }
+    else if(random<5 && random>3){
+      choice = userchoice;
+    }
+    else{
+      if(userchoice == "Rock"){
+        choice = "Paper";
+      }
+      if(userchoice == "Paper"){
+        choice = "Rock";
+      }
+      else{
+        choice = "Scissors";
+      }
+    }
+    compare = user.localeCompare(choice);
+    console.log("Gato choice" + choice + "userchoice" + user + "Compare" + compare);
+  }
+  else if(villain == "Mr.Modern"){
+    if(random<2){
+      choice = villainschoice;
+
+    }
+    else if(random<7 && random>5){
+      choice = "Rock"
+    }
+    else if(random>5 && random<7){
+      if(userchoice == "Rock"){
+        choice = "Paper";
+      }
+      if(userchoice == "Paper"){
+        choice = "Rock";
+      }
+      else{
+        choice = "Scissors";
+      }
+    }
+    else{
+      choice = userchoice;
+    }
+    compare = user.localeCompare(choice);
+    console.log("Mr.Modern choice" + choice + "userchoice" + user + "Compare" + compare);
+  }
+
+  else if(villain == "Regal"){
+    choice = "Rock";
+    if(user == "Rock"){
+    compare = 0;
+    }
+    else if(user == "Paper"){
+      compare = 1;
+    }
+    else{
+      compare = -1;
+    }
+    console.log("Regal choice" + choice + "userchoice" + user + "Compare" + compare);
+  }
+
+//The Boss: Always Wins
+  else if(villain == "The Boss"){
+    if(userchoice == "Rock"){
+      choice = "Paper";
+      compare = 1;
+      //console.log("Attempt Rock" + choice);
+    }
+    else if(userchoice == "Paper"){
+      choice = "Scissors";
+      compare = -1;
+    //  console.log("Attempt Paper" + choice);
+
+    }
+    else if(userchoice == "Scissors"){
+      choice = "Rock";
+      compare = -1;
+      //console.log("Attempt Scissors" + choice);
+    }
+    console.log("The Boss choice" + choice + "userchoice" + user + "Compare" + compare);
+  }
+
+
+//Comic Hans: Always Loses
+  else if(villain == "Comic Hans"){
+    console.log("userchoiceboss" + userchoice);
+    if(userchoice == "Rock"){
+      choice = "Scissors";
+      compare = 1
+      console.log("Choicehappened" + choice);
+
+    }
+    else if(userchoice == "Paper"){
+      choice = "Rock";
+      compare = 1
+      console.log("Choicehappened" + choice);
+
+    }
+    else{
+      choice = "Paper";
+      compare = -1
+      console.log("Choicehappened" + choice);
+
+    }
+    console.log("Comic Hans choice" + choice + "userchoice" + user + "Compare" + compare);
+  }
+//throws depending on what last villain chose
+  else if(villain == "Harry"){
+    if(villainsthrowsarray[villainsthrowsarray.length-1][1]=="undefined"){
+      choice = "Rock";
+    }
+    else if(villainsthrowsarray[villainsthrowsarray.length-1][1]!=="Paper"){
+      choice = "Scissors";
+    }
+    else if(villainsthrowsarray[villainsthrowsarray.length-1][1]!=="Scissors"){
+      choice = "Paper";
+    }
+    else{
+      choice = "Rock";
+    }
+    compare = user.localeCompare(choice);
+    console.log("Mr.Modern choice" + choice + "userchoice" + user + "Compare" + compare);
+  }
+
+//Always throw Scissors
+  else if(villain == "Mickey"){
+    choice = "Scissors";
+    if(user =="Scissors"){
+      compare = 0;
+    }
+    else{
+      compare = 1;
+    }
+  }
+
+  else if(villain == "Pixie"){
+    choice = villainschoice;
+    compare = user.localeCompare(choice);
+    console.log("Pixie choice" + choice + "userchoice" + user + "Compare" + compare);
+  }
+  else if(villain == "Spock"){
+    choice = villainschoice;
+    compare = user.localeCompare(choice);
+    console.log("Spock choice" + choice + "userchoice" + user + "Compare" + compare);
+  }
+//Never Throws the Same Thing Twice
+  else if(villain == "The Magician"){
+    for(var i=villainsthrowsarray.length-1; i>=0; i--){
+      console.log("Throw array" + villainsthrowsarray[i]);
+      console.log("Throw array name" + villainsthrowsarray[i][0]);
+      if(villainsthrowsarray[i][0] == villain){
+        //console.log(villains)
+        index == i;
+        break;
+      }
+      else{
+        continue;
+      }
+    }
+
+    if(villainsthrowsarray[villainsthrowsarray.length-1][1]=="undefined"){
+      choice = "Rock";
+    }
+    else if(villainsthrowsarray[villainsthrowsarray.length-1][1]!=="Paper"){
+      choice = "Rock";
+    }
+    else if(villainsthrowsarray[villainsthrowsarray.length-1][1]!=="Scissors"){
+      choice = "Paper";
+    }
+    else{
+      choice = "Scissors";
+    }
+    compare = user.localeCompare(choice);
+    console.log("Mr.Modern choice" + choice + "userchoice" + user + "Compare" + compare);
+
+  }
+
+
+if(choice!=""){
+  villainsthrowsarray.push([villain,choice]);
+  console.log("Throw array" + villainsthrowsarray)
+}
+var k = [choice, compare];
+  //console.log("final return vil" + choice);
+  return k;
+}
+
+
+
+
+/*
 function villainthrow(villain,userchoice,villainschoice){
   var random = (10 * Math.random());
   var choice;
@@ -735,6 +992,7 @@ function villainthrow(villain,userchoice,villainschoice){
     //console.log("final return vil" + choice);
     return choice;
 }
+*/
 
 function randomThrow(){
   var throwoptions = ["Rock", "Paper", "Scissors"];
