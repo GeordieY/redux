@@ -1,8 +1,8 @@
 Name, Games Played, Games Won, Games Lost, Games Tied, Paper Played, Scissors Played, Rock Played
-Bones,3, 0,2,1,1,1,1
-Gato,0, 0, 0, 0, 0, 0, 0
+Bones,4, 0,2,2,1,1,2
+Gato,2, 0, 0, 0, 0, 0, 0
 Manny,1, 0, 0,1,1, 0, 0
-Mr.Modern,1,0, 0,1,1,0, 0
+Mr.Modern,3,0, 0,3,3,0, 0
 Regal,1,1, 0, 0, 0, 0,1
 The Boss,2,2,0, 0,0,2,0
 Comic Hans,0, 0,0, 0, 0,0,0
@@ -10,4 +10,4 @@ Harry,13,3,3,3, 0,1,8
 Mickey,4,2,1,1, 0,4, 0
 Pixie,10,3,4,3,6,2,2
 Spock,6,4,2,0,4,1,1
-The Magician,26,7,7,12,9,6,11
+The Magician,27,7,7,13,9,6,12

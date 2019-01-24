@@ -53,8 +53,9 @@
    </div>
 
   <div id="throw_choice">
-      <h2>Play the Game </h2>
 
+      <img id="referee" src="" height=300; width=300; style = "position: relative; float: left; z-index:500; padding-top:5%">
+      <h2 id="hurryUP">Play the Game</h2>
       <h3>Welcome <%=user.name%> it's your turn to bust a move!</h3>
 
       <form action="<%=user.name%>/results" method="get">
@@ -101,10 +102,12 @@
           });
           </script>
         <img id="villain_image" src="images/Bones_waiting.svg" height=135; width=135;>
+        <img id="referee" src="">
+        <script src="scripts/scripts.js"></script>
     </div>
 <% include global/footer %>
 
-  <
+
 
 
 
