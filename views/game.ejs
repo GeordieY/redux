@@ -89,18 +89,18 @@
           villains.addEventListener("input", function(){
             var k = document.getElementById("villains").value
             var c = k.replace(' ', '_');
-            document.getElementById("villain_image").src = "..images/" + c + "_waiting.svg";
+            document.getElementById("villain_image").src = "images/" + c + "_waiting.svg";
             console.log("Checked");
           });
 
           villains2.addEventListener("input", function(){
             var k = document.getElementById("villains2").value
             var c = k.toLowerCase().replace(' ', '_');
-            document.getElementById("villain_image").src = "..images/" + c + "_waiting.svg";
+            document.getElementById("villain_image").src = "images/" + c + "_waiting.svg";
             console.log("Checked");
           });
           </script>
-        <img id="villain_image" src="../images/Bones_waiting.svg" height=135; width=135;>
+        <img id="villain_image" src="images/Bones_waiting.svg" height=135; width=135;>
     </div>
 <% include global/footer %>
 
