@@ -271,7 +271,7 @@ else{
     }
   }
 
-  if(villname == "Mr.Modern"){
+  if(villname == "Mr Modern"){
     if(userwep =="Rock" && villain_data.weapon == "Rock" ){
       compare = 0;
       winner = "Tie";
