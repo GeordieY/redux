@@ -1,3 +1,10 @@
+/*Stuff to show to Gohde:
+  2) Villain Strategies Not All Working: Mr.Modern, Harry, Magician [based on villain throws]
+  3) Game.EJS: How to load loading images when the input isn't defined yet without JQuery
+    (document.addEventListener to change the images?)
+
+
+*/
 
 var express = require('express');
 var fs = require('fs');
@@ -16,7 +23,11 @@ app.listen(port, function(){
 
 var username;
 var password;
-var villainsthrowsarray = ["The Magician", "Rock"];
+var villainsthrowsarray=[];
+
+
+
+
 
 app.get('/', function(request, response){
   var user_data = {
@@ -121,19 +132,20 @@ var villain_data = {
 var vilwep = String(villain_data.weapon);
 var userwep = String(user_data.weapon);
 var villname = villain_data.name;
+var arrayswitch;
 //console.log("Vilwep" + vilwep);
 //console.log("Userwep" + userwep);
 //console.log("Villanme" + villname);
 villain_data.weapon = villainthrow(villname,userwep,vilwep)[0];
 
-console.log("Final weapon" + vilwep + typeof(vilwep));
-console.log("Userwep" + userwep + typeof(vilwep));
+//console.log("Final weapon" + vilwep + typeof(vilwep));
+//console.log("Userwep" + userwep + typeof(vilwep));
 //console.log("User weapon" + user_data.weapon);
 
 var c = "Rock";
 var k = "Paper";
 var d = "Scissors";
-
+/*
 console.log("Rock vs Paper" + c.localeCompare(k));
 console.log("Rock vs Scissors" + c.localeCompare(d));
 console.log("Rock vs Rock" + c.localeCompare(c));
@@ -145,8 +157,10 @@ console.log("Paper vs Rock" + k.localeCompare(c));
 console.log("Scissors vs Paper" + d.localeCompare(k));
 console.log("Scissors vs Scissors" + d.localeCompare(d));
 console.log("Scissors vs Rock" + d.localeCompare(c));
+*/
 var winner;
 
+console.log("Villainsthrowsarray loading" + villainsthrowsarray);
 
 
 
@@ -272,9 +286,56 @@ else{
     }
   }
 
+  if(villname == "The Magician"){
+  /*
+  if(villainsthrowsarray.length>0){
+    for(var i=villainsthrowsarray.length-1;i>=0;i--){
+      for(var k=0; k<villainsthrowsarray[i].length;k++){
+        if(villainsthrowsarray[i].includes(villain_data.name)){
+          arrayswitch = villainsthrowsarray[i][1];
+          break;
+          break;
+        }
+        //console.log("Throwsarray check" + villainsthrowsarray[i][k] + i + k);
+      }
+    }
+    if(arrayswitch == "Paper"){
+      villain_data.weapon = "Rock";
+    }
 
+    else if(arrayswitch == "Rock"){
+      villain_data.weapon = "Scissors";
+    }
+    else if(arrayswitch == "Scissors"){
+      villain_data.weapon = "Paper"
+    }
+    vilwep = villain_data.weapon;
+    villainsthrowsarray.push([villain_data.name, villain_data.weapon]);
+    compare = villain_data.weapon.localeCompare(userwep);
+*/
+  }
 
+  //}
 
+  if(villname == "Harry"){
+    /*
+    arrayswitch = villainsthrowsarray[villainsthrowsarray.length-1][1];
+    if(arrayswitch == "Paper"){
+      villain_data.weapon = "Rock";
+
+    }
+
+    else if(arrayswitch == "Rock"){
+      villain_data.weapon = "Scissors";
+    }
+    else{
+      villain_data.weapon = "Paper"
+    }
+    villainsthrowsarray.push([villain_data.name, villain_data.weapon]);
+    vilwep = villain_data.weapon;
+    compare = villain_data.weapon.localeCompare(userwep);
+    */
+  }
 
 /*
 hard code
@@ -285,7 +346,7 @@ hard code
 
 
 
-console.log("comparedvalue" + compare);
+//console.log("comparedvalue" + compare);
 var index;
 var index2;
 var user_info = [];
@@ -321,7 +382,7 @@ for(var i=0;i<villain_info.length;i++){
     villain_info[index2][1] = changeIndexValue(villain_info[index2][1]);
     //console.log("game user played" + user_info[index][1]);
     if(compare==-1 && String(villain_data.weapon)=="Paper"){
-      console.log("Userwep" + userwep);
+      //console.log("Userwep" + userwep);
       if(userwep=="Rock"){
       user_info[index][3] = changeIndexValue(user_info[index][3]);
       user_info[index][7] = changeIndexValue(user_info[index][7]);
@@ -337,7 +398,7 @@ for(var i=0;i<villain_info.length;i++){
       villain_info[index2][5] = changeIndexValue(villain_info[index2][5]);
       winner=user_info[index][0];
       }
-      console.log("Winner determined" + winner);
+      //console.log("Winner determined" + winner);
     }
     if(compare==0 && villain_data.weapon=="Paper"){
       user_info[index][4] = changeIndexValue(user_info[index][4]);
@@ -384,14 +445,14 @@ for(var i=0;i<villain_info.length;i++){
       //console.log("Winner determined" + winner);
     }
     if(compare==1 && String(villain_data.weapon)=="Scissors"){
-      console.log("Tested with Comic Hans");
+      //console.log("Tested with Comic Hans");
       if(userwep=="Rock"){
       user_info[index][2] = changeIndexValue(user_info[index][2]);
       user_info[index][7] = changeIndexValue(user_info[index][7]);
       villain_info[index2][3] = changeIndexValue(villain_info[index2][3]);
       villain_info[index2][6] = changeIndexValue(villain_info[index2][6]);
       winner= user_info[index][0];
-      console.log("Winner determined" + winner);
+      //console.log("Winner determined" + winner);
       }
       else {
         user_info[index][3] = changeIndexValue(user_info[index][3]);
@@ -399,7 +460,7 @@ for(var i=0;i<villain_info.length;i++){
         villain_info[index2][2] = changeIndexValue(villain_info[index2][2]);
         villain_info[index2][6] = changeIndexValue(villain_info[index2][6]);
         winner = villain_info[index2][0];
-        console.log("Winner determined" + winner);
+        //console.log("Winner determined" + winner);
       }
     }
     /*
@@ -524,6 +585,30 @@ app.get('/stats', function(request, response){
   //  console.log("Data2" + villain_data);
   }
 
+villain_data.sort(function(a,b){
+  console.log(a.wins+" "+a.total_games);
+
+if(a.total_games>0 && b.total_games>0){
+  if((a.wins/a.total_games) > (b.wins/b.total_games)){
+    return -1;
+  }
+  else if((a.wins/a.total_games) < (b.wins/b.total_games)){
+    return 1;
+  }
+  else{
+    return 0;
+  }
+}
+else if(a.total_games == 0 & b.total_games > 0){
+  return 1;
+}
+else{
+  return -1;
+}
+
+});
+
+
 /*
 for(var i=villain_data.length-1; i>0; i--){
   var k = villain_data[i].total_games;
@@ -539,20 +624,24 @@ for(var i=villain_data.length-1; i>0; i--){
 }
 */
 
+//use sort method for arrays
 
 
-
-
+/*
 for(var i=villain_data.length-1; i>0; i--){
-  if(villain_data[i].wins > villain_data[i-1].wins){
+  if(villain_data[i].wins/villain_data[i].total_games > villain_data[i-1].wins/villain_data[i-1].total_games){
   //  console.log("Greater");
     var temp = villain_data[i-1];
     villain_data[i-1] = villain_data[i]
     villain_data[i] = temp;
   }
+  else{
+    continue;
+  }
   //console.log("vil 1 win" + villain_data[i].wins);
   //console.log("vil 2 win" + villain_data[i-1].wins);
 }
+*/
 
 
   var data = {};
@@ -584,10 +673,11 @@ function villainthrow(villain,userchoice,villainschoice){
   var index = [];
   var compare;
 
+  var nothrow = false;
   if(villain == "Bones"){
     choice = villainschoice;
     compare = user.localeCompare(choice);
-    console.log("Bones choice" + choice + "userchoice" + user + "Compare" + compare);
+    //console.log("Bones choice" + choice + "userchoice" + user + "Compare" + compare);
   }
   else if(villain == "Manny"){
     choice = "Paper";
@@ -628,7 +718,7 @@ function villainthrow(villain,userchoice,villainschoice){
       }
     }
     compare = user.localeCompare(choice);
-    console.log("Gato choice" + choice + "userchoice" + user + "Compare" + compare);
+    //console.log("Gato choice" + choice + "userchoice" + user + "Compare" + compare);
   }
   else if(villain == "Mr.Modern"){
     if(random<2){
@@ -653,7 +743,7 @@ function villainthrow(villain,userchoice,villainschoice){
       choice = userchoice;
     }
     compare = user.localeCompare(choice);
-    console.log("Mr.Modern choice" + choice + "userchoice" + user + "Compare" + compare);
+    //console.log("Mr.Modern choice" + choice + "userchoice" + user + "Compare" + compare);
   }
 
   else if(villain == "Regal"){
@@ -667,7 +757,7 @@ function villainthrow(villain,userchoice,villainschoice){
     else{
       compare = -1;
     }
-    console.log("Regal choice" + choice + "userchoice" + user + "Compare" + compare);
+    //console.log("Regal choice" + choice + "userchoice" + user + "Compare" + compare);
   }
 
 //The Boss: Always Wins
@@ -688,49 +778,55 @@ function villainthrow(villain,userchoice,villainschoice){
       compare = -1;
       //console.log("Attempt Scissors" + choice);
     }
-    console.log("The Boss choice" + choice + "userchoice" + user + "Compare" + compare);
+  //  console.log("The Boss choice" + choice + "userchoice" + user + "Compare" + compare);
   }
 
 
 //Comic Hans: Always Loses
   else if(villain == "Comic Hans"){
-    console.log("userchoiceboss" + userchoice);
+  //  console.log("userchoiceboss" + userchoice);
     if(userchoice == "Rock"){
       choice = "Scissors";
       compare = 1
-      console.log("Choicehappened" + choice);
+    //  console.log("Choicehappened" + choice);
 
     }
     else if(userchoice == "Paper"){
       choice = "Rock";
       compare = 1
-      console.log("Choicehappened" + choice);
+    //  console.log("Choicehappened" + choice);
 
     }
     else{
       choice = "Paper";
       compare = -1
-      console.log("Choicehappened" + choice);
+      //console.log("Choicehappened" + choice);
 
     }
     console.log("Comic Hans choice" + choice + "userchoice" + user + "Compare" + compare);
   }
 //throws depending on what last villain chose
   else if(villain == "Harry"){
+    choice = villainschoice;
+    compare = user.localeCompare(choice);
+    /*
     if(villainsthrowsarray[villainsthrowsarray.length-1][1]=="undefined"){
       choice = "Rock";
     }
-    else if(villainsthrowsarray[villainsthrowsarray.length-1][1]!=="Paper"){
+    else if(villainsthrowsarray[villainsthrowsarray.length-1][1]=="Paper"){
       choice = "Scissors";
     }
-    else if(villainsthrowsarray[villainsthrowsarray.length-1][1]!=="Scissors"){
+    else if(villainsthrowsarray[villainsthrowsarray.length-1][1]=="Scissors"){
       choice = "Paper";
     }
     else{
       choice = "Rock";
     }
-    compare = user.localeCompare(choice);
-    console.log("Mr.Modern choice" + choice + "userchoice" + user + "Compare" + compare);
+    */
+    //choice = randomChoice();
+  //  compare = user.localeCompare(choice);
+  //  console.log(compare);
+    //console.log("Mr.Modern choice" + choice + "userchoice" + user + "Compare" + compare);
   }
 
 //Always throw Scissors
@@ -747,49 +843,68 @@ function villainthrow(villain,userchoice,villainschoice){
   else if(villain == "Pixie"){
     choice = villainschoice;
     compare = user.localeCompare(choice);
-    console.log("Pixie choice" + choice + "userchoice" + user + "Compare" + compare);
+    //console.log("Pixie choice" + choice + "userchoice" + user + "Compare" + compare);
   }
   else if(villain == "Spock"){
     choice = villainschoice;
     compare = user.localeCompare(choice);
-    console.log("Spock choice" + choice + "userchoice" + user + "Compare" + compare);
+    //console.log("Spock choice" + choice + "userchoice" + user + "Compare" + compare);
   }
 //Never Throws the Same Thing Twice
   else if(villain == "The Magician"){
+    choice = villainschoice;
+    compare = user.localeCompare(choice);
+    /*
     for(var i=villainsthrowsarray.length-1; i>=0; i--){
-      console.log("Throw array" + villainsthrowsarray[i]);
-      console.log("Throw array name" + villainsthrowsarray[i][0]);
+      //console.log("Throw array" + villainsthrowsarray[i]);
+      //console.log("Throw array name" + villainsthrowsarray[i][0]);
       if(villainsthrowsarray[i][0] == villain){
         //console.log(villains)
         index == i;
         break;
       }
       else{
+        if(i!=0){
         continue;
+        }
+        else{
+          index = 0;
+          nothrow = true;
+
+        }
       }
     }
+/*
+    if(villainsthrowsarray[index][1]=="undefined"){
+      choice = "Rock";
+    }
+    */
 
-    if(villainsthrowsarray[villainsthrowsarray.length-1][1]=="undefined"){
+  /*
+    if(nothrow == true){
       choice = "Rock";
     }
-    else if(villainsthrowsarray[villainsthrowsarray.length-1][1]!=="Paper"){
+    else if(villainsthrowsarray[index][1]=="Paper"){
       choice = "Rock";
     }
-    else if(villainsthrowsarray[villainsthrowsarray.length-1][1]!=="Scissors"){
+    else if(villainsthrowsarray[index][1]=="Scissors"){
       choice = "Paper";
     }
     else{
       choice = "Scissors";
     }
-    compare = user.localeCompare(choice);
-    console.log("Mr.Modern choice" + choice + "userchoice" + user + "Compare" + compare);
+    */
+    //choice = randomThrow();
+    //compare = user.localeCompare(choice);
+
+  //  console.log("Mr.Modern choice" + choice + "userchoice" + user + "Compare" + compare);
 
   }
 
 
 if(choice!=""){
   villainsthrowsarray.push([villain,choice]);
-  console.log("Throw array" + villainsthrowsarray)
+//  console.log("Throw array" + villainsthrowsarray)
 }
 var k = [choice, compare];
   //console.log("final return vil" + choice);

@@ -83,31 +83,33 @@
         <br> <br>
           <input type="submit" name="Play Game!" value="Play Game!">
         </form>
-      
+
+        <script src="scripts/scripts.js"></script>
+        <script>
+          villains.addEventListener("input", function(){
+            var k = document.getElementById("villains").value
+            var c = k.replace(' ', '_');
+            document.getElementById("villain_image").src = "..images/" + c + "_waiting.svg";
+            console.log("Checked");
+          });
+
+          villains2.addEventListener("input", function(){
+            var k = document.getElementById("villains2").value
+            var c = k.toLowerCase().replace(' ', '_');
+            document.getElementById("villain_image").src = "..images/" + c + "_waiting.svg";
+            console.log("Checked");
+          });
+          </script>
+        <img id="villain_image" src="../images/Bones_waiting.svg" height=135; width=135;>
     </div>
 <% include global/footer %>
 
-  <script src="scripts/scripts.js"></script>
-  <script>
-  /*
-  var k = $("#villains").val();
-  console.log("k" + k);
-  $("#villains").on('input', function() {
-    console.log("changed");
-    var s = $(this).val();
-    c = s.toLowerCase();
-    $("#villain_img").attr("src", "images/" + c +"_waiting.svg");
-  });
+  <
 
 
-    $("#villains2").change(function(){
-      var selected2 = $("#villains2").val());
-      console.log(selected2);
-      var c = selected2.toLowerCase();
-      console.log(c);
-      $("#villain_img").attr("src", "images/" + c +"_waiting.svg");
-    });
-    /*
-    </script>
+
+
+
+
  </body>
 </html>
