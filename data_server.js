@@ -160,7 +160,7 @@ console.log("Scissors vs Rock" + d.localeCompare(c));
 */
 var winner;
 
-console.log("Villainsthrowsarray loading" + villainsthrowsarray);
+//console.log("Villainsthrowsarray loading" + villainsthrowsarray);
 
 
 
@@ -586,7 +586,7 @@ app.get('/stats', function(request, response){
   }
 
 villain_data.sort(function(a,b){
-  console.log(a.wins+" "+a.total_games);
+  //console.log(a.wins+" "+a.total_games);
 
 if(a.total_games>0 && b.total_games>0){
   if((a.wins/a.total_games) > (b.wins/b.total_games)){
@@ -720,7 +720,7 @@ function villainthrow(villain,userchoice,villainschoice){
     compare = user.localeCompare(choice);
     //console.log("Gato choice" + choice + "userchoice" + user + "Compare" + compare);
   }
-  else if(villain == "Mr.Modern"){
+  else if(villain == "Mr Modern"){
     if(random<2){
       choice = villainschoice;
 
@@ -803,7 +803,7 @@ function villainthrow(villain,userchoice,villainschoice){
       //console.log("Choicehappened" + choice);
 
     }
-    console.log("Comic Hans choice" + choice + "userchoice" + user + "Compare" + compare);
+    //console.log("Comic Hans choice" + choice + "userchoice" + user + "Compare" + compare);
   }
 //throws depending on what last villain chose
   else if(villain == "Harry"){
