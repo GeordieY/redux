@@ -2,7 +2,7 @@
 
 h1 {
   color: #ff0000;
-  background-color: #f4d69f;
+  background-color: #b6c6b8;
   text-align: center;
 }
 
@@ -12,7 +12,7 @@ div {
   margin-right: 50px;
   margin-left: 50px;
 
-  background-color: #f4d69f;
+  background-color: #f2f2f2;
 
 }
 table, th, td {
@@ -31,7 +31,7 @@ table, th, td {
 }
 
 html, body {
-  background-color: #4842f4;
+  background-color: #b6c6b8;
   font-family: 'Oswald', sans-serif;
   width: 99.3%;
   height: 100%;
@@ -43,7 +43,7 @@ contactInfo {
   color: black;
   background-color: lightgrey;
   text-align: left;
-  text-shadow: 3px 2px red;
+  text-shadow: 1px 1px lightgrey;
 }
 
 #headPlayerImg {
@@ -65,4 +65,8 @@ contactInfo {
 
 #AboutLink {
   text-align: right;
+}
+
+#search {
+    width: 30em;  height: 5em;
 }
